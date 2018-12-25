@@ -34,10 +34,6 @@ class AP:
         else:
             return True
 
-        # TODO: 只能查看Error值是否為空，為空其實不代表一定error
-        # 也有可能"run not yet", "input not complete"`,看看是
-        # 否有其他寫法
-
     def Show(self, log):
         """Show Aspen GUI or not.
         log: a Boolean value. True for Show the GUI, False for close the GUI.
@@ -62,7 +58,6 @@ class AP:
         table: a boolen value. default is False for print the result on the screen. If table=True,
                 return result in  dictionary type.
         """
-        # TODO: 檢查輸入引數是否在範圍內
     ## 輸入變數檢查
         ## 檢查item是否為list格式
         if type(item) != list:
@@ -122,16 +117,12 @@ class AP:
         um = obj.AttributeValue(3)
         return self.Unit([pq,um], table=table)
 
-        # TODO: 找看看能不能判斷obj是否為合法輸入
-
     def UnitChange(self, obj, unit_index):
         """Change the Unit in AspenFile for the physics properties.
         obj: an Aspen COMObject for the physics property.
         unit_index: index for the specified physics property in AspenPlus.
                         It can be  search by the 'Unit()'  for what index for the desired unit.
         """
-        # TODO: 檢查引數是否在範圍內
-
         ## 將數值兩個單位引數分別記錄起來
         pq = obj.AttributeValue(2)
         um = unit_index

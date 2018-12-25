@@ -1,12 +1,8 @@
 # 匯入自定義錯誤，不然有些函式會找不到哪裡raise錯誤
 from AspenPlus import UserDifineException as UDE
 
-# TODO: 我總覺得這堆重複性很高的程式碼可以用decorator，
-#  不過我還不會，正在研究當中
 class Stream:
     def __init__(self, master):
-        # 應該是不用辨認輸入的master是否為帶有路徑的AspenPlus類別
-        # ，因為在__init__.py裡的AP應該就會檢查過了。
         self.master = master
         self.aspen = master.aspen
 

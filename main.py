@@ -306,12 +306,134 @@ def stream_test():
         n += 1
         print('Error' + str(n))  # 應為32
 
+def disillation_test():
+    n = 0
+    # 測試NStage()
+    print(Aspen.Distillation.NStage('c1'))
+    Aspen.Distillation.NStage('c1',40)
+    print(Aspen.Distillation.NStage('c1'))
+    try:
+        Aspen.Distillation.NStage('c2')
+    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+        n += 1
+        print("Error" + str(n)) # 應為1
+    try:
+        Aspen.Distillation.NStage(123)
+    except TypeError:
+        n += 1
+        print("Error" + str(n))  # 應為2
+    # 測試Diameter()
+    print(Aspen.Distillation.Diameter('c2-size'))
+    print(Aspen.Distillation.Diameter('c2-size', get_unit=True))
+    print(Aspen.Distillation.Diameter('c2-size', get_unit=False, unit_change_to=1))
+    print(Aspen.Distillation.Diameter('c2-size', get_unit=True, unit_change_to=1))
+    try:
+        Aspen.Distillation.Diameter('c2')
+    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+        n += 1
+        print('Error' + str(n))  # 應為3
+    try:
+        Aspen.Distillation.Diameter(123)
+    except TypeError:
+        n += 1
+        print('Error' + str(n))  # 應為4
+    try:
+        Aspen.Distillation.Diameter('c2-size', get_unit=123)
+    except TypeError:
+        n += 1
+        print('Error' + str(n))  # 應為5
+    try:
+        Aspen.Distillation.Diameter('c2-size', get_unit=False, unit_change_to='')
+    except TypeError:
+        n += 1
+        print('Error' + str(n))  # 應為6
+    try:
+        Aspen.Distillation.Diameter('c1')
+    except AspenPlus.UserDifineException.AspenPlus_SizingError:
+        n += 1
+        print('Error' + str(n))  # 應為7
+    # 測試Height()
+    print(Aspen.Distillation.Height('c1'))
+    print(Aspen.Distillation.Height('c1',get_unit=True))
+    try:
+        Aspen.Distillation.Height('c2',get_unit=True)
+    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+        n += 1
+        print('Error' + str(n))  # 應為8
+    try:
+        Aspen.Distillation.Height(123)
+    except TypeError:
+        n += 1
+        print('Error' + str(n))  # 應為9
+    try:
+        Aspen.Distillation.Height('c1',get_unit='')
+    except TypeError:
+        n += 1
+        print('Error' + str(n))  # 應為10
+    # 測試QR()
+    print(Aspen.Distillation.QR('c2-size'))
+    print(Aspen.Distillation.QR('c2-size', get_unit=True))
+    print(Aspen.Distillation.QR('c2-size', get_unit=False, unit_change_to=1))
+    print(Aspen.Distillation.QR('c2-size', get_unit=True, unit_change_to=1))
+    print(Aspen.Distillation.QR('c3'))
+    print(Aspen.Distillation.QR('c4'))
+    try:
+        Aspen.Distillation.QR('c2')
+    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+        n += 1
+        print('Error' + str(n))  # 應為11
+    try:
+        Aspen.Distillation.QR(123)
+    except TypeError:
+        n += 1
+        print('Error' + str(n))  # 應12
+    try:
+        Aspen.Distillation.QR('c2-size', get_unit=123)
+    except TypeError:
+        n += 1
+        print('Error' + str(n))  # 應為13
+    try:
+        Aspen.Distillation.QR('c2-size', get_unit=False, unit_change_to='')
+    except TypeError:
+        n += 1
+        print('Error' + str(n))  # 應為14
+    # 測試QC()
+    print(Aspen.Distillation.QC('c2-size'))
+    print(Aspen.Distillation.QC('c2-size', get_unit=True))
+    print(Aspen.Distillation.QC('c2-size', get_unit=False, unit_change_to=1))
+    print(Aspen.Distillation.QC('c2-size', get_unit=True, unit_change_to=1))
+    print(Aspen.Distillation.QC('c3'))
+    print(Aspen.Distillation.QC('c4'))
+    try:
+        Aspen.Distillation.QC('c2')
+    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+        n += 1
+        print('Error' + str(n))  # 應為15
+    try:
+        Aspen.Distillation.QC(123)
+    except TypeError:
+        n += 1
+        print('Error' + str(n))  # 應16
+    try:
+        Aspen.Distillation.QC('c2-size', get_unit=123)
+    except TypeError:
+        n += 1
+        print('Error' + str(n))  # 應為17
+    try:
+        Aspen.Distillation.QC('c2-size', get_unit=False, unit_change_to='')
+    except TypeError:
+        n += 1
+        print('Error' + str(n))  # 應為18
+
+
 # basic_test()
-stream_test()
+# stream_test()
+disillation_test()
 
 ## 測試用的兩個參數路徑
 ## Application.Tree.Data.Streams.B1.Output.TOT_FLOW
 ## Application.Tree.FindNode("\Data\Streams\B1\Output\TOT_FLOW")
+## Application.Tree.FindNode("\Data\Blocks\C1\Comments\#0") 列出單元的comment
 
 # 測試Close()
 Aspen.Close()
