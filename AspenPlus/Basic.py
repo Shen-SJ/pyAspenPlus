@@ -1,14 +1,17 @@
 # 匯入自定義錯誤，不然有些函式會找不到哪裡raise錯誤
 from AspenPlus import UserDifineException as UDE
+from functools import wraps
 
 # 最基本的Aspen類別功能，首次執行此封包要先設定這個類別。
 # 裡面包含一些基本功能，像是列出檔案所含的所有單元、物流、化合物...等等
+
+
 class AP:
     import win32com.client as win32
     aspen = win32.Dispatch('Apwn.Document')
+
     def __init__(self, path):
         import os
-        global a  ## 錯誤測試用變數，程式完成後最好刪除
 
         ## 檢查檔案是否存在
         if not os.path.isfile(path):
@@ -17,26 +20,31 @@ class AP:
                 " Please check the dic you  input.")
 
         self.aspen.InitFromArchive(path)
-        # self.Stream = Stream.Stream(AP)
-        a = self.aspen  ## 錯誤測試用變數，程式完成後最好刪除
 
-        '''
-        Apwn36.0 == AspenPlus V10.0
-        '''
+        # Apwn36.0 == AspenPlus V10.0
 
-    def Error(self):
-        """Determine the file has error or not.
-        If yes return 'True', or return 'False'.
+    def FileStatus(self):
+        """Determine the status of AspenFile. if the file is
+
+        :return: if file is available, return 'Available'. if file has waring, return 'Warning'.
+        if file has error, return 'Error'.
         """
-        ErrorPath = 'Data/Results Summary/Run-Status/Output/PER_ERROR/1'
-        if self.aspen.Tree.FindNode(ErrorPath) == None:
-            return False
+        status_code = self.aspen.Tree.Data.Elements("Results Summary").Elements("Run-Status").AttributeValue(12)
+        if (status_code & 1) == 1:      # 位元運算，1 為 results available
+            return 'Available'
+        elif (status_code & 4) == 4:    # 位元運算，4 為 results with warning
+            return 'Warning'
+        elif (status_code & 32) == 32:  # 位元運算，32 為 results with error
+            return 'Error'
         else:
-            return True
+            raise UDE.AspenPlus_FileStatusError("File Status recognized error. " +
+                                                "Please Connect Programmer !!!")
 
     def Show(self, log):
         """Show Aspen GUI or not.
-        log: a Boolean value. True for Show the GUI, False for close the GUI.
+
+        :param log: a Boolean value. True for Show the GUI, False for close the GUI.
+        :return: None
         """
         ## 檢查log是否為布林值
         if type(log) != bool:
@@ -45,23 +53,25 @@ class AP:
         self.aspen.Visible = log
 
     def Close(self):
-        """Close AspenPlus COM object.
-        After execute the AspenPlus, the function must be call.
+        """Close AspenPlus COM object. After execute the AspenPlus, the function must be call.
+
+        :return: None
         """
         self.aspen.Close()
 
-    def Unit(self, item=[], table=False):
+    def Unit(self, item=None, table=False):
         """Show the Unit Table or specified category or specified unit in AspenPlus.
-        item: if [], list the supported Unit category in AspenPlus.
-                if [integer], list the supported Unit in specified Unit category in AspenPlus.
-                if [integer, integer], show the Unit for specified parameters.
-        table: a boolen value. default is False for print the result on the screen. If table=True,
-                return result in  dictionary type.
+
+        :param item: if [], list the supported Unit category in AspenPlus.
+        if [integer], list the supported Unit in specified Unit category in AspenPlus.
+        if [integer, integer], show the Unit for specified parameters.
+        :param table: a boolen value. default is False for print the result on the screen. If table=True,
+        return result in  dictionary type.
         """
     ## 輸入變數檢查
-        ## 檢查item是否為list格式
-        if type(item) != list:
-            raise TypeError("item has to be a 'Blank List' or "
+        ## 檢查item是否為list格式或是None(預設值)
+        if (type(item) != list) and (item is not None):
+            raise TypeError("item has to be a 'None' or "
                             + "'List' with 1 integer parameter or "
                             + "'List' with 2 integer parameters!!")
         ## 檢查table是否為布林值
@@ -69,7 +79,7 @@ class AP:
             raise TypeError("table must be 'Boolen' value.")
 
         ## 列出整數參數對應的單位類別
-        if item == []:
+        if item is None:
             UT = {}
             for index, e in enumerate(self.aspen.Tree.Elements("Unit Table").Elements, start=1):
                 if table:
@@ -77,7 +87,11 @@ class AP:
                 elif not table:
                     print("{0:3d}{1:>15s}".format(index, e.Name))
         ## 列出選定單位類別的所有支援單位
-        elif (type(item[0]) is int) and (len(item) == 1):
+        elif (type(item[0]) is int) and (len(item) == 1):   # 如果是空list應該會報錯
+            ## 檢查第一參數不能超過設定值 (146)
+            if item[0] > len(self.aspen.Tree.Elements("Unit Table").Elements):
+                raise IndexError('The 1st index is out of range !!!')
+
             UT = {}
             ename = self.aspen.Tree.Elements("Unit Table").Elements[item[0]-1].Name
             for index, e in enumerate(self.aspen.Tree.Elements("Unit Table").Elements(ename).Elements, start=1):
@@ -87,13 +101,17 @@ class AP:
                     print("{0:3d}{1:>15s}".format(index, e.Name))
         ## 顯示兩個整數參數所代表的單位
         elif (type(item[0]) is int) and (type(item[1]) is int) and (len(item) == 2):
+            ## 檢查第二參數不能超過設定值
+            if item[1] > len(self.aspen.Tree.Elements("Unit Table").Elements[item[0]-1].Elements):
+                raise IndexError('The 2nd index is out of range !!!')
+
             ename = self.aspen.Tree.Elements("Unit Table").Elements[item[0]-1].Elements[item[1]-1].Name
             if table:
                 UT = ename
             elif not table:
                 print(ename)
         else:
-            raise TypeError("item has to be a 'Blank List' or "
+            raise TypeError("item has to be a 'None' or "
                             + "'List' with 1 integer parameter or "
                             + "'List' with 2 integer parameters!!")
 
@@ -105,9 +123,10 @@ class AP:
 
     def UnitFind(self, obj, table=False):
         """Get the unit of physics property in AspenFile for the current unit setting.
-        obj: an Aspen COMObject for the physics properties.
-        table: a boolen value. default is False for print the result on the screen. If table=True,
-                return result in  string.
+
+        :param obj: an Aspen COMObject for the physics properties.
+        :param table: a boolen value. default is False for print the result on the screen.
+        :return: If table=True, return result in  string.
         """
         ## 檢查table是否為布林值
         if type(table) != bool:
@@ -117,11 +136,15 @@ class AP:
         um = obj.AttributeValue(3)
         return self.Unit([pq,um], table=table)
 
+        # TODO: 找看看能不能判斷obj是否為合法輸入
+
     def UnitChange(self, obj, unit_index):
         """Change the Unit in AspenFile for the physics properties.
-        obj: an Aspen COMObject for the physics property.
-        unit_index: index for the specified physics property in AspenPlus.
-                        It can be  search by the 'Unit()'  for what index for the desired unit.
+
+        :param obj: an Aspen COMObject for the physics property.
+        :param unit_index: index for the specified physics property in AspenPlus.
+        It can be  search by the 'Unit()'  for what index for the desired unit.
+        :return: float. a value with changing unit.
         """
         ## 將數值兩個單位引數分別記錄起來
         pq = obj.AttributeValue(2)
@@ -134,10 +157,16 @@ class AP:
             raise IOError("obj doesn't has the unit. "
                           + "Please Check the input of obj.")
 
+        ## 檢查um參數不能超過設定值
+        if um > len(self.aspen.Tree.Elements("Unit Table").Elements[pq - 1].Elements):
+            raise IndexError('The um index is out of range !!!')
+
         return obj.ValueForUnit(pq, um)
 
     def ListBlocks(self):
         """Show all of the blocks in AspenFile.
+
+        :return: None
         """
         print("{0[0]:11s}{0[1]:11s}".format(["Block_Name","Block_Type"]))
         print("======================")
@@ -149,6 +178,8 @@ class AP:
 
     def ListStreams(self):
         """Show all of the streams in AspenFile.
+
+        :return: None
         """
         print("Streams_Name")
         print("============")
@@ -158,6 +189,8 @@ class AP:
 
     def ListComponents(self):
         """Show all of the components in AspenFile.
+
+        :return: None
         """
         print("Components_Name")
         print("===============")
@@ -167,6 +200,8 @@ class AP:
 
     def BlocksList(self) -> list:
         """Get the block-list in AspenFile with 'List Type'.
+
+        :return: List. a list with all blocks name in AspenFile.
         """
         a_list = []
         for e in self.aspen.Tree.Data.Blocks.Elements:
@@ -175,6 +210,8 @@ class AP:
 
     def StreamsList(self) -> list:
         """Get the streams-list in AspenFile with 'List Type'.
+
+        :return: List. a list with all streams name in AspenFile.
         """
         a_list = []
         for e in self.aspen.Tree.Data.Streams.Elements:
@@ -183,6 +220,8 @@ class AP:
 
     def ComponentsList(self) -> list:
         """Get the components-list in AspenFile with 'List Type'.
+
+        :return: List. a list with all components name in AspenFile.
         """
         a_list = []
         for e in self.aspen.Tree.Data.Components.Elements("Comp-Lists").GLOBAL.Input.CID.Elements:
@@ -191,9 +230,10 @@ class AP:
 
     def Connections(self, bname, table=False):
         """Show the connected stream of the desired block.
-        bname: block name in 'Str-Type'.
-        table: a boolen value. default is False for print the result on the screen. If table=True,
-                return result in  list type.
+
+        :param bname: block name in 'Str-Type'.
+        :param table: a boolen value. default is False for print the result on the screen. If table=True,
+        return result in  list type.
         """
         ## 先檢查輸入的資料型態是否正確
         if type(bname) is not str:
@@ -226,7 +266,9 @@ class AP:
 
     def BlockType(self, bname) -> str:
         """Get the block type of the bname in string.
-        bname: Block name in AspenFile.
+
+        :param bname: Block name in AspenFile.
+        :return: Sting. a string in block type for specified block.
         """
         ## 先檢查輸入的資料型態是否正確
         if type(bname) is not str:
@@ -242,3 +284,59 @@ class AP:
                                                 + "Please Check the name you type!!")
 
         return self.aspen.Tree.Data.Blocks.Elements(bname).AttributeValue(6)
+
+def check_name(Type):
+    """Check the input variable-type for the name is correct or not, and whether the name is in the file or not .
+        Finally, return the upper name to the program. The available name-type: block, stream.
+    """
+    def decorator(func):
+        @wraps(func)
+        def wrapper(self, *args, **kwargs):
+            # Inner function for this decorator
+            def name_up_and_arg_change(name, args):
+                """將name變大寫並且回傳回args"""
+                # TODO: 考慮檢查name與args
+
+                name = name.upper()
+                args = list(args)   # 要把args第一個參數(name)變成大寫
+                args[0] = name      # 但是args是tuple不能修改，所以要先
+                args = tuple(args)  # 變成list，修改過後再轉回tuple
+                return name, args
+
+            if Type == 'stream':
+                sname = args[0]
+
+                ## 先檢查輸入的資料型態正確與否
+                if type(sname) != str:
+                    raise TypeError("sname must be a 'String'!!!")
+
+                # 把sname變大寫並回傳回args
+                sname, args = name_up_and_arg_change(sname, args)
+
+                ## 檢查輸入的物流名稱是否在檔案當中，如無回傳錯誤
+                if sname not in self.master.StreamsList():
+                    raise UDE.AspenPlus_StreamTypeError("Cannot Find " + sname
+                                                        + " in the AspenFile. "
+                                                        + "Please Check the name you type!!")
+            elif Type == 'block':
+                bname = args[0]
+
+                ## 先檢查輸入的資料型態正確與否
+                if type(bname) != str:
+                    raise TypeError("bname must be a 'String'!!!")
+
+                # 把bname變大寫並回傳回args
+                bname, args = name_up_and_arg_change(bname, args)
+
+                ## 檢查輸入的物流名稱是否在檔案當中，如無回傳錯誤
+                if bname not in self.master.BlocksList():
+                    raise UDE.AspenPlus_BlockTypeError("Cannot Find " + bname
+                                                        + " in the AspenFile. "
+                                                        + "Please Check the name you type!!")
+            else:
+                raise TypeError('No Match Value for Type, '
+                                + 'Please Check the value you type !!!')
+
+            return func(self, *args, **kwargs)
+        return wrapper
+    return decorator
