@@ -10,6 +10,10 @@ class AspenPlus_BlockTypeError(Exception):
     """Aspen單元辨認失敗用"""
     pass
 
+class AspenPlus_BlockError(Exception):
+    """Aspen單元辨認失敗用"""
+    pass
+
 class AspenPlus_StreamTypeError(Exception):
     """Aspen物流辨認失敗用"""
     pass
@@ -29,5 +33,7 @@ class AspenPlus_SteamError(Exception):
 class AspenPlus_WaterError(Exception):
     """Water使用上有問題，像是: 連Chill water可能都不太能使用的情況"""
     pass
+
+
 if __name__ == "__main__":
     raise FileNotExist

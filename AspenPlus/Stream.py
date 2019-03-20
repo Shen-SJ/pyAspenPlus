@@ -249,6 +249,7 @@ class Stream:
             else:  # 取得數值
                 return self.master.UnitChange(self.aspen.Tree.FindNode(path), unit_change_to)
 
+
 if __name__ == "__main__":
     import AspenPlus
 

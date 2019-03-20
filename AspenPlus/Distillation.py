@@ -398,6 +398,21 @@ class Distillation:
         else:  # 取得數值
             return Qr / Uc / DeltaT
 
+    @check_name(Type='block')
+    def getRefluxRatio(self, bname) -> float:
+        """Get the reflux ratio of specified column.
+
+        :param bname: Block name.
+        :return: float.
+        """
+        ## 檢查bname是否為RadFrac
+        if self.master.BlockType(bname) != 'RadFrac':
+            raise UDE.AspenPlus_BlockTypeError(bname + ' is not a RadFrac,'
+                                               + 'please check the name you type!!')
+
+        path = "\Data\Blocks" + "\\" + bname + r"\Output\MOLE_RR"
+        return self.aspen.Tree.FindNode(path).Value
+
 
 if __name__ == "__main__":
     import AspenPlus

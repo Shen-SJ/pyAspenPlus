@@ -24,6 +24,7 @@ def AP(path):
     from AspenPlus import Distillation
     from AspenPlus import Heater
     from AspenPlus import Extract
+    from AspenPlus import Decanter
     from AspenPlus import Cost
 
     A = Basic.AP(path)
@@ -31,6 +32,7 @@ def AP(path):
     A.Distillation = Distillation.Distillation(A)
     A.Heater = Heater.Heater(A)
     A.Extractor = Extract.Extractor(A)
+    A.Decanter = Decanter.Decanter(A)
     A.Cost = Cost.Cost(A)
 
     return A

@@ -688,6 +688,13 @@ class Distillation_test(unittest.TestCase):
             Aspen.Distillation.getCondenserArea,
             'c2-size', Uc=-123)
 
+    def test_getRefluxRatio(self):
+        """進行 getRefluxRatio 函式的各種測試，測試內容如下：
+        # 測試　Aspen.Distillation.setRefluxRatio 中 bname 的功能
+        """
+        # 測試　Aspen.Distillation.getRefluxRatio 中 bname 的功能
+        self.bname_test(Aspen.Distillation.getRefluxRatio, 1.0)
+
 
 class Heater_test(unittest.TestCase):
     def bname_test(self, fun, correct_value):
@@ -947,6 +954,130 @@ class Extractor_test(unittest.TestCase):
 
         # 測試　Aspen.Extractor.getHeight 中 getunit 的功能
         self.getunit_test(Aspen.Extractor.getHeight, 'meter')
+
+
+class Decanter_test(unittest.TestCase):
+    def bname_test(self, fun, correct_value):
+        # 測試 bname 輸入正常時功能正常
+        self.assertEqual(
+            fun('dec'),
+            correct_value)
+
+        # 測試輸入之 bname 不存在檔案中時
+        self.assertRaisesRegex(
+            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            "Cannot Find C11 in the AspenFile. Please Check the name you type!!",
+            fun,
+            'c11')
+        # 測試輸入 bname 型態錯誤
+        self.assertRaisesRegex(
+            TypeError,
+            "bname must be a 'String'!!!",
+            fun,
+            123)
+
+        # 測試輸入 bname 非 Decanter
+        self.assertRaisesRegex(
+            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            "C3-RE is not a Decanter,please check the name you type!!",
+            fun,
+            'c3-re')
+
+    def getunit_test(self, fun, correct_value):
+        # 測試 getunit 輸入正常時功能正常
+        self.assertEqual(
+            fun('dec', get_unit=True),
+            correct_value)
+
+        # 測試輸入 getunit 型態錯誤
+        self.assertRaisesRegex(
+            TypeError,
+            "unit must be a 'Boolean'!!!",
+            fun,
+            'dec', get_unit=123)
+
+    def test_getVolume(self):
+        """進行 getVolume 函式的各種測試，測試內容如下：
+        # 測試　Aspen.Decanter.getVolume 中 bname 的功能
+        # 測試　Aspen.Decanter.getVolume 中 getunit 的功能
+
+        # 測試輸入 Aspen.Decanter.getVolume 中 rtime 的型態錯誤
+        # 測試輸入 Aspen.Decanter.getVolume 中 rtime 的數值錯誤
+        # 測試輸入 Aspen.Decanter.getVolume 中 LF 的型態錯誤
+        # 測試輸入 Aspen.Decanter.getVolume 中 LF 的數值錯誤
+        """
+        # 測試　Aspen.Decanter.getVolume 中 bname 的功能
+        self.bname_test(Aspen.Decanter.getVolume, 0.9698495799999987)
+
+        # 測試　Aspen.Extractor.getVolume 中 getunit 的功能
+        self.getunit_test(Aspen.Decanter.getVolume, 'cum')
+
+        # 測試輸入 Aspen.Decanter.getVolume 中 rtime 的型態錯誤
+        self.assertRaisesRegex(
+            TypeError,
+            "rtime must be a Number!!!",
+            Aspen.Decanter.getVolume,
+            'dec', rtime='')
+
+        # 測試輸入 Aspen.Decanter.getVolume 中 rtime 的數值錯誤
+        self.assertRaisesRegex(
+            ValueError,
+            "rtime should not be a negative number!!",
+            Aspen.Decanter.getVolume,
+            'dec', rtime=-123)
+
+        # 測試輸入 Aspen.Decanter.getVolume 中 LF 的型態錯誤
+        self.assertRaisesRegex(
+            TypeError,
+            "LF must be a Number!!!",
+            Aspen.Decanter.getVolume,
+            'dec', LF='')
+
+        # 測試輸入 Aspen.Decanter.getVolume 中 LF 的數值錯誤
+        self.assertRaisesRegex(
+            ValueError,
+            "LF should not be a negative number!!",
+            Aspen.Decanter.getVolume,
+            'dec', LF=-123)
+
+    def test_getDiameter(self):
+        """進行 getDiameter 函式的各種測試，測試內容如下：
+        # 測試　Aspen.Decanter.getDiameter 中 bname 的功能
+        # 測試　Aspen.Decanter.getDiameter 中 getunit 的功能
+        """
+        # 測試　Aspen.Decanter.getDiameter 中 bname 的功能
+        self.bname_test(Aspen.Decanter.getDiameter, 0.8515199698200184)
+
+        # 測試　Aspen.Extractor.getDiameter 中 getunit 的功能
+        self.getunit_test(Aspen.Decanter.getDiameter, 'meter')
+
+    def test_getHeight(self):
+        """進行 getHeight 函式的各種測試，測試內容如下：
+        # 測試　Aspen.Decanter.getHeight 中 bname 的功能
+        # 測試　Aspen.Decanter.getHeight 中 getunit 的功能
+
+        # 測試輸入 Aspen.Decanter.getHeight 中 AR 的型態錯誤
+        # 測試輸入 Aspen.Decanter.getHeight 中 AR 的數值錯誤
+        """
+        # 測試　Aspen.Decanter.getHeight 中 bname 的功能
+        self.bname_test(Aspen.Decanter.getHeight, 1.7030399396400369)
+
+        # 測試　Aspen.Decanter.getHeight 中 getunit 的功能
+        self.getunit_test(Aspen.Decanter.getHeight, 'meter')
+
+        # 測試輸入 Aspen.Decanter.getHeight 中 AR 的型態錯誤
+        self.assertRaisesRegex(
+            TypeError,
+            "AR must be a Number!!!",
+            Aspen.Decanter.getHeight,
+            'dec', AR='')
+
+        # 測試輸入 Aspen.Decanter.getHeight 中 AR 的數值錯誤
+        self.assertRaisesRegex(
+            ValueError,
+            "AR should not be a negative number!!",
+            Aspen.Decanter.getHeight,
+            'dec', AR=-123)
 
 
 class Cost_test(unittest.TestCase):
