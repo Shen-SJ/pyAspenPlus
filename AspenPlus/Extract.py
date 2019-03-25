@@ -100,7 +100,7 @@ class Extractor:
         ## 確認萃取塔只有兩個進料物流
         index = 0
         sname_arr = []
-        for e in self.aspen.Tree.Data.Blocks.Elements(bname).Input.Elements("FEED_STAGE").Elements:
+        for e in self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Input").Elements("FEED_STAGE").Elements:
             sname_arr.append(e.Name)
             index += 1
         if index > 2:

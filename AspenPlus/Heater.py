@@ -88,8 +88,8 @@ class Heater:
 
             ## 找出Heater出口的物流名稱，並取得其凱式溫度與適合公共流體
             outlet_name = None
-            for e in self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements:
-                streamtype = self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements(e.Name).Value
+            for e in self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements:
+                streamtype = self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements(e.Name).Value
                 if streamtype == "P(OUT)" and self.master.BlockType(bname) == 'Heater':
                     outlet_name = e.Name
             if outlet_name is None:
@@ -107,8 +107,8 @@ class Heater:
 
             ## 找出Heater出口的物流名稱，並取得其凱式溫度與適合公共流體
             outlet_name = None
-            for e in self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements:
-                streamtype = self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements(e.Name).Value
+            for e in self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements:
+                streamtype = self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements(e.Name).Value
                 if streamtype == "P(OUT)" and self.master.BlockType(bname) == 'Heater':
                     outlet_name = e.Name
             if outlet_name is None:
@@ -126,8 +126,8 @@ class Heater:
             ## 找出Heater出口的物流名稱，並取得其凱式溫度與適合公共流體
             outlet_name = None
             inlet_name = None
-            for e in self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements:
-                streamtype = self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements(e.Name).Value
+            for e in self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements:
+                streamtype = self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements(e.Name).Value
                 if streamtype == "P(OUT)" and self.master.BlockType(bname) == 'Heater':
                     outlet_name = e.Name
                 elif streamtype == "F(IN)" and self.master.BlockType(bname) == 'Heater':

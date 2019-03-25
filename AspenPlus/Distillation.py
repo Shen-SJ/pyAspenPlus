@@ -74,7 +74,7 @@ class Distillation:
             raise TypeError("sname must be a 'String'!!!")
 
         ## 指定塔的進料物流 物件
-        obj = self.aspen.Tree.Data.Blocks.Elements(bname).Input.FEED_STAGE
+        obj = self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Input").Elements("FEED_STAGE")
 
         ## 列出指定塔的進料物流有哪些
         nlist = []
@@ -122,7 +122,7 @@ class Distillation:
             raise TypeError("sname must be a 'String'!!!")
 
         ## 指定塔的進料物流 物件
-        obj = self.aspen.Tree.Data.Blocks.Elements(bname).Input.FEED_STAGE
+        obj = self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Input").Elements("FEED_STAGE")
 
         ## 列出指定塔的進料物流有哪些
         nlist = []
@@ -282,8 +282,8 @@ class Distillation:
 
         bottom_name = None
         ## 找出再沸器的出口物流名稱後取得其溫度
-        for e in self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements:
-            streamtype = self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements(e.Name).Value
+        for e in self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements:
+            streamtype = self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements(e.Name).Value
             if streamtype == "B(OUT)":
                 bottom_name = e.Name
         Temp = self.master.Stream.getTemperature(bottom_name, unit_change_to=4)
@@ -377,8 +377,8 @@ class Distillation:
 
         bottom_name = None
         ## 找出冷凝器的出口物流名稱後取得其溫度
-        for e in self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements:
-            streamtype = self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements(e.Name).Value
+        for e in self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements:
+            streamtype = self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements(e.Name).Value
             if streamtype == "LD(OUT)":
                 bottom_name = e.Name
         Temp = self.master.Stream.getTemperature(bottom_name, unit_change_to=1)

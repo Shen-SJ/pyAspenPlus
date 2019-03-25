@@ -2,6 +2,7 @@
 from AspenPlus import UserDifineException as UDE
 from AspenPlus.Basic import check_name
 
+
 class Stream:
     def __init__(self, master):
         self.master = master

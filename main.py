@@ -507,7 +507,7 @@ def heater_test():
 # basic_test()
 # stream_test()
 # distillation_test()
-heater_test()
+# heater_test()
 
 ## 測試用的兩個參數路徑
 ## Application.Tree.Data.Streams.B1.Output.TOT_FLOW
@@ -525,4 +525,5 @@ print(Aspen.Decanter.getVolume('dec'), Aspen.Decanter.getVolume('dec', get_unit=
 print(Aspen.Decanter.getDiameter('dec'), Aspen.Decanter.getDiameter('dec', get_unit=True))
 print(Aspen.Decanter.getHeight('dec'), Aspen.Decanter.getHeight('dec', get_unit=True))
 Aspen.Close()
+
 

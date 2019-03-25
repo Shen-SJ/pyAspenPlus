@@ -68,8 +68,8 @@ class Cost:
 
         bottom_name = None
         ## 找出加熱單元的出口物流名稱
-        for e in self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements:
-            streamtype = self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements(e.Name).Value
+        for e in self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements:
+            streamtype = self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements(e.Name).Value
             ## 是蒸餾塔的話
             if streamtype == "B(OUT)" and self.master.BlockType(bname) == 'RadFrac':
                 bottom_name = e.Name
@@ -128,8 +128,8 @@ class Cost:
 
         bottom_name = None
         ## 找出冷卻單元的出口物流名稱
-        for e in self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements:
-            streamtype = self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements(e.Name).Value
+        for e in self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements:
+            streamtype = self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements(e.Name).Value
             ## 是蒸餾塔的話
             if streamtype == "LD(OUT)" and self.master.BlockType(bname) == 'RadFrac':
                 bottom_name = e.Name

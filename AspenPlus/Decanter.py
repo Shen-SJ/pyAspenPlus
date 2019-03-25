@@ -44,8 +44,8 @@ class Decanter:
 
         ## 找出Decanter進料物流名稱
         dec_fstream = []
-        for e in self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements:
-            streamtype = self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements(e.Name).Value
+        for e in self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements:
+            streamtype = self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements(e.Name).Value
             if streamtype == "F(IN)":
                 dec_fstream.append(e.Name)
 

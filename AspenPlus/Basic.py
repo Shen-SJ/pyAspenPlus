@@ -29,7 +29,7 @@ class AP:
         :return: if file is available, return 'Available'. if file has waring, return 'Warning'.
         if file has error, return 'Error'.
         """
-        status_code = self.aspen.Tree.Data.Elements("Results Summary").Elements("Run-Status").AttributeValue(12)
+        status_code = self.aspen.Tree.Elements("Data").Elements("Results Summary").Elements("Run-Status").AttributeValue(12)
         if (status_code & 1) == 1:      # 位元運算，1 為 results available
             return 'Available'
         elif (status_code & 4) == 4:    # 位元運算，4 為 results with warning
@@ -93,7 +93,7 @@ class AP:
                 raise IndexError('The 1st index is out of range !!!')
 
             UT = {}
-            ename = self.aspen.Tree.Elements("Unit Table").Elements[item[0]-1].Name
+            ename = self.aspen.Tree.Elements("Unit Table").Elements.Item(item[0]-1).Name
             for index, e in enumerate(self.aspen.Tree.Elements("Unit Table").Elements(ename).Elements, start=1):
                 if table:
                     UT[index] = e.Name
@@ -102,10 +102,10 @@ class AP:
         ## 顯示兩個整數參數所代表的單位
         elif (type(item[0]) is int) and (type(item[1]) is int) and (len(item) == 2):
             ## 檢查第二參數不能超過設定值
-            if item[1] > len(self.aspen.Tree.Elements("Unit Table").Elements[item[0]-1].Elements):
+            if item[1] > len(self.aspen.Tree.Elements("Unit Table").Elements.Item(item[0]-1).Elements):
                 raise IndexError('The 2nd index is out of range !!!')
 
-            ename = self.aspen.Tree.Elements("Unit Table").Elements[item[0]-1].Elements[item[1]-1].Name
+            ename = self.aspen.Tree.Elements("Unit Table").Elements.Item(item[0]-1).Elements.Item(item[1]-1).Name
             if table:
                 UT = ename
             elif not table:
@@ -158,7 +158,7 @@ class AP:
                           + "Please Check the input of obj.")
 
         ## 檢查um參數不能超過設定值
-        if um > len(self.aspen.Tree.Elements("Unit Table").Elements[pq - 1].Elements):
+        if um > len(self.aspen.Tree.Elements("Unit Table").Elements.Item(pq - 1).Elements):
             raise IndexError('The um index is out of range !!!')
 
         return obj.ValueForUnit(pq, um)
@@ -170,9 +170,9 @@ class AP:
         """
         print("{0[0]:11s}{0[1]:11s}".format(["Block_Name","Block_Type"]))
         print("======================")
-        for e in self.aspen.Tree.Data.Blocks.Elements:
+        for e in self.aspen.Tree.Elements("Data").Elements("Blocks").Elements:
             ## 可以讀取所選物件的"Type"
-            blocktype = self.aspen.Tree.Data.Blocks.Elements(e.Name).AttributeValue(6)
+            blocktype = self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(e.Name).AttributeValue(6)
             print("{0:11s}{1:11s}".format(e.Name,blocktype))
         print("(These are all of the blocks.)")
 
@@ -183,7 +183,7 @@ class AP:
         """
         print("Streams_Name")
         print("============")
-        for e in self.aspen.Tree.Data.Streams.Elements:
+        for e in self.aspen.Tree.Elements("Data").Elements("Streams").Elements:
             print(e.Name)
         print("(These are all of the streams.)")
 
@@ -194,7 +194,7 @@ class AP:
         """
         print("Components_Name")
         print("===============")
-        for e in self.aspen.Tree.Data.Components.Elements("Comp-Lists").GLOBAL.Input.CID.Elements:
+        for e in self.aspen.Tree.Elements("Data").Elements("Components").Elements("Comp-Lists").Elements("GLOBAL").Elements("Input").Elements("CID").Elements:
             print(e.Value)
         print("(These are all of the components.)")
 
@@ -204,7 +204,7 @@ class AP:
         :return: List. a list with all blocks name in AspenFile.
         """
         a_list = []
-        for e in self.aspen.Tree.Data.Blocks.Elements:
+        for e in self.aspen.Tree.Elements("Data").Elements("Blocks").Elements:
             a_list.append(e.Name)
         return a_list
 
@@ -214,7 +214,7 @@ class AP:
         :return: List. a list with all streams name in AspenFile.
         """
         a_list = []
-        for e in self.aspen.Tree.Data.Streams.Elements:
+        for e in self.aspen.Tree.Elements("Data").Elements("Streams").Elements:
             a_list.append(e.Name)
         return a_list
 
@@ -224,7 +224,7 @@ class AP:
         :return: List. a list with all components name in AspenFile.
         """
         a_list = []
-        for e in self.aspen.Tree.Data.Components.Elements("Comp-Lists").GLOBAL.Input.CID.Elements:
+        for e in self.aspen.Tree.Elements("Data").Elements("Components").Elements("Comp-Lists").Elements("GLOBAL").Elements("Input").Elements("CID").Elements:
             a_list.append(e.Value)
         return a_list
 
@@ -254,13 +254,13 @@ class AP:
         if not table:
             print("{0[0]:13s}{0[1]:13s}".format(["Stream_Name","Streams_Type"]))
             print("==========================")
-            for e in self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements:
-                streamtype = self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements(e.Name).Value
+            for e in self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements:
+                streamtype = self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements(e.Name).Value
                 print("{0:13s}{1:13s}".format(e.Name,streamtype))
         ## 將結果以列表輸出
         elif table:
             a_list = []
-            for e in self.aspen.Tree.Data.Blocks.Elements(bname).Connections.Elements:
+            for e in self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).Elements("Connections").Elements:
                 a_list.append(e.Name)
             return a_list
 
@@ -283,7 +283,8 @@ class AP:
                                                 + " in the AspenFile. "
                                                 + "Please Check the name you type!!")
 
-        return self.aspen.Tree.Data.Blocks.Elements(bname).AttributeValue(6)
+        return self.aspen.Tree.Elements("Data").Elements("Blocks").Elements(bname).AttributeValue(6)
+
 
 def check_name(Type):
     """Check the input variable-type for the name is correct or not, and whether the name is in the file or not .
