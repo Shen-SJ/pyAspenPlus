@@ -524,6 +524,6 @@ Aspen.Unit([1])
 print(Aspen.Decanter.getVolume('dec'), Aspen.Decanter.getVolume('dec', get_unit=True))
 print(Aspen.Decanter.getDiameter('dec'), Aspen.Decanter.getDiameter('dec', get_unit=True))
 print(Aspen.Decanter.getHeight('dec'), Aspen.Decanter.getHeight('dec', get_unit=True))
-Aspen.Close()
 
+# Aspen.Close()
 

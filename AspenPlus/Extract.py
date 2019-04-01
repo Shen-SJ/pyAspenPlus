@@ -120,7 +120,3 @@ class Extractor:
                 return 0.3048*(vtotal*4/120/0.6/3.1415926)**0.5
         else:
             raise UDE.AspenPlus_BlockTypeError("The feed streams of extractor have vapor!!")
-
-    def _getDensity(self):
-        pass
-        # 之後再新增功能

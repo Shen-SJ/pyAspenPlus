@@ -23,6 +23,13 @@ class AP:
 
         # Apwn36.0 == AspenPlus V10.0
 
+    def __del__(self):
+        """Close the AspenFile when AP class is destroyed."""
+        try:
+            self.Close()
+        except:
+            pass
+
     def FileStatus(self):
         """Determine the status of AspenFile. if the file is
 
