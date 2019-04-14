@@ -24,7 +24,7 @@ def Efdi(mynum, effdi):
     S = "{:." + str(effdi) + "f}"
     return S.format(mynum)
 
-## Test.
+# Test.
 if __name__ == "__main__":
     #####我的原始資料
     temp = 316.54132
@@ -36,8 +36,3 @@ if __name__ == "__main__":
     print(Efdi(1,2))
     print(Efdi(0.2,4))
     print(Efdi(0.99999999,4))
-
-#####我辛苦的發現#####
-##  "{:.4f}".format(1.5)    打印1.5小數點下4位精度 (1.5000) ->str
-##  round(3.16,1) 對3.16四捨五入到小數第一位，注意float是不準的，所以
-##  round(3.15,1) => round(3.14999...,1)=3.14

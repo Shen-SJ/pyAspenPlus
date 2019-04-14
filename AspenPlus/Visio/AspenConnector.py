@@ -65,7 +65,7 @@ class AspenConnector:
         ## 從Aspen讀取物流資訊並帶入有效位數
         comp = []
         for i in component: # 讀取分率
-            comp.append(i + ' ' + Xefdg.format(self.aspen_master.Stream.getMoleFrac(aspen_name, i)))
+            comp.append(Xefdg.format(self.aspen_master.Stream.getMoleFrac(aspen_name, i)) + ' ' + i)
         FFTemp = ' '.join([Tefdg.format(self.aspen_master.Stream.getTemperature(aspen_name)),
                           self.aspen_master.Stream.getTemperature(aspen_name, get_unit=True)])
         FFPres = ' '.join([Pefdg.format(self.aspen_master.Stream.getPressure(aspen_name)),

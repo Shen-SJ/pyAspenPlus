@@ -143,8 +143,6 @@ class AP:
         um = obj.AttributeValue(3)
         return self.Unit([pq,um], table=table)
 
-        # TODO: 找看看能不能判斷obj是否為合法輸入
-
     def UnitChange(self, obj, unit_index):
         """Change the Unit in AspenFile for the physics properties.
 
@@ -303,7 +301,6 @@ def check_name(Type):
             # Inner function for this decorator
             def name_up_and_arg_change(name, args):
                 """將name變大寫並且回傳回args"""
-                # TODO: 考慮檢查name與args
 
                 name = name.upper()
                 args = list(args)   # 要把args第一個參數(name)變成大寫
