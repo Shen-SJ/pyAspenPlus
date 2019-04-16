@@ -1,6 +1,6 @@
 # 匯入自定義錯誤，不然有些函式會找不到哪裡raise錯誤
-from AspenPlus import UserDifineException as UDE
-from AspenPlus.Basic import check_name
+from pyAspenPlus import UserDifineException as UDE
+from pyAspenPlus.Basic import check_name
 
 
 # TODO: 把算設備的成本公式參考文獻附在類別當中
@@ -415,10 +415,10 @@ class Distillation:
 
 
 if __name__ == "__main__":
-    import AspenPlus
+    import pyAspenPlus
 
     path = "D:\\Google Cloud\\Python\\Great program for AspenPlus\\TestFile\\DistillationColumn.apw"
-    Aspen = AspenPlus.AP(path)
+    Aspen = pyAspenPlus.AP(path)
 
     print(Aspen.Distillation.getNStage('c1'))
     Aspen.Distillation.setNStage('c1', 40)

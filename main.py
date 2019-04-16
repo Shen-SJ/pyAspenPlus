@@ -1,10 +1,10 @@
-import AspenPlus
+import pyAspenPlus
 import os
 import time
 
 path = os.path.join(os.path.abspath('.'), "TestFile", "DistillationColumn.apw")
 # path = r'D:\Google Cloud\沈孝錚\Aspen\AllylAlcohol Dehydration\Ally Alcohol Dehydration by ED with EG.apw'
-Aspen = AspenPlus.AP(path)
+Aspen = pyAspenPlus.AP(path)
 obj = Aspen.aspen.Tree.FindNode("\Data\Streams\B1\Output\TOT_FLOW")
 
 def basic_test():
@@ -74,7 +74,7 @@ def basic_test():
     print(Aspen.Connections('C1',table=True))
     try:
         Aspen.Connections('c2')
-    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError:
         n += 1
         print('Error' + str(n))  # 應為8
     try:
@@ -91,7 +91,7 @@ def basic_test():
     print(Aspen.BlockType('c1'))
     try:
         Aspen.BlockType('c2')
-    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError:
         n += 1
         print('Error' + str(n))  # 應為11
     try:
@@ -113,7 +113,7 @@ def stream_test():
     print(Aspen.Stream.getMoleFlow('b1', component='water', get_unit=True, unit_change_to=1))
     try:
         Aspen.Stream.getMoleFlow('b11')
-    except AspenPlus.UserDifineException.AspenPlus_StreamTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_StreamTypeError:
         n += 1
         print('Error' + str(n))  # 應為1
     try:
@@ -141,12 +141,12 @@ def stream_test():
     print(Aspen.Stream.getMoleFrac('b1', 'water'))
     try:
         Aspen.Stream.getMoleFrac('b11', 'water')
-    except AspenPlus.UserDifineException.AspenPlus_StreamTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_StreamTypeError:
         n += 1
         print('Error' + str(n))  # 應為6
     try:
         Aspen.Stream.getMoleFrac('b1', 'waterr')
-    except AspenPlus.UserDifineException.AspenPlus_ComponentTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_ComponentTypeError:
         n += 1
         print('Error' + str(n))  # 應為7
     try:
@@ -171,7 +171,7 @@ def stream_test():
     print(Aspen.Stream.getMassFlow('b1', component='water', get_unit=True, unit_change_to=1))
     try:
         Aspen.Stream.getMassFlow('b11')
-    except AspenPlus.UserDifineException.AspenPlus_StreamTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_StreamTypeError:
         n += 1
         print('Error' + str(n))  # 應為10
     try:
@@ -199,12 +199,12 @@ def stream_test():
     print(Aspen.Stream.getMassFrac('b1', 'water'))
     try:
         Aspen.Stream.getMassFrac('b11', 'water')
-    except AspenPlus.UserDifineException.AspenPlus_StreamTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_StreamTypeError:
         n += 1
         print('Error' + str(n))  # 應為15
     try:
         Aspen.Stream.getMassFrac('b1', 'waterr')
-    except AspenPlus.UserDifineException.AspenPlus_ComponentTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_ComponentTypeError:
         n += 1
         print('Error' + str(n))  # 應為16
     try:
@@ -225,7 +225,7 @@ def stream_test():
     print(Aspen.Stream.getTemperature('b1', get_unit=True, unit_change_to=1))
     try:
         Aspen.Stream.getTemperature('b11')
-    except AspenPlus.UserDifineException.AspenPlus_StreamTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_StreamTypeError:
         n += 1
         print('Error' + str(n))  # 應為19
     try:
@@ -251,7 +251,7 @@ def stream_test():
     print(Aspen.Stream.getPressure('b1', get_unit=True, unit_change_to=1))
     try:
         Aspen.Stream.getPressure('b11')
-    except AspenPlus.UserDifineException.AspenPlus_StreamTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_StreamTypeError:
         n += 1
         print('Error' + str(n))  # 應為23
     try:
@@ -274,7 +274,7 @@ def stream_test():
     print(Aspen.Stream.getVaporFrac('b1'))
     try:
         Aspen.Stream.getVaporFrac('b11')
-    except AspenPlus.UserDifineException.AspenPlus_StreamTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_StreamTypeError:
         n += 1
         print('Error' + str(n))  # 應為27
     try:
@@ -290,7 +290,7 @@ def stream_test():
     print(Aspen.Stream.getVolumeFlow('b1', get_unit=True, unit_change_to=1))
     try:
         Aspen.Stream.getVolumeFlow('b11')
-    except AspenPlus.UserDifineException.AspenPlus_StreamTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_StreamTypeError:
         n += 1
         print('Error' + str(n))  # 應為29
     try:
@@ -316,12 +316,12 @@ def distillation_test():
     print(Aspen.Distillation.getNStage('c1'))
     try:
         Aspen.Distillation.getNStage('c2')
-    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError:
         n += 1
         print("Error" + str(n)) # 應為1
     try:
         Aspen.Distillation.getNStage('c4-con')
-    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError:
         n += 1
         print("Error" + str(n)) # 應為2
     try:
@@ -334,7 +334,7 @@ def distillation_test():
     print(Aspen.Distillation.getNStage('c1'))
     try:
         Aspen.Distillation.setNStage('c2', 40)
-    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError:
         n += 1
         print("Error" + str(n))  # 應為4
     try:
@@ -359,12 +359,12 @@ def distillation_test():
     print(Aspen.Distillation.getDiameter('c2-size', get_unit=True, unit_change_to=1))
     try:
         Aspen.Distillation.getDiameter('c2')
-    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError:
         n += 1
         print('Error' + str(n))  # 應為8
     try:
         Aspen.Distillation.getDiameter('c4-con')
-    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError:
         n += 1
         print('Error' + str(n))  # 應為9
     try:
@@ -384,7 +384,7 @@ def distillation_test():
         print('Error' + str(n))  # 應為12
     try:
         Aspen.Distillation.getDiameter('c1')
-    except AspenPlus.UserDifineException.AspenPlus_SizingError:
+    except pyAspenPlus.UserDifineException.AspenPlus_SizingError:
         n += 1
         print('Error' + str(n))  # 應為13
     # 測試Height()
@@ -392,12 +392,12 @@ def distillation_test():
     print(Aspen.Distillation.getHeight('c1', get_unit=True))
     try:
         Aspen.Distillation.getHeight('c2')
-    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError:
         n += 1
         print('Error' + str(n))  # 應為14
     try:
         Aspen.Distillation.getHeight('c4-con')
-    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError:
         n += 1
         print('Error' + str(n))  # 應為15
     try:
@@ -419,12 +419,12 @@ def distillation_test():
     print(Aspen.Distillation.getQR('c4'))
     try:
         Aspen.Distillation.getQR('c2')
-    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError:
         n += 1
         print('Error' + str(n))  # 應為18
     try:
         Aspen.Distillation.getQR('c4-con')
-    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError:
         n += 1
         print('Error' + str(n))  # 應為19
     try:
@@ -451,12 +451,12 @@ def distillation_test():
     print(Aspen.Distillation.getQC('c4'))
     try:
         Aspen.Distillation.getQC('c2')
-    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError:
         n += 1
         print('Error' + str(n))  # 應為23
     try:
         Aspen.Distillation.getQC('c4-con')
-    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError:
         n += 1
         print('Error' + str(n))  # 應為24
     try:
@@ -484,7 +484,7 @@ def heater_test():
     print(Aspen.Heater.getQ('c4-con', get_unit=True, unit_change_to=1))
     try:
         Aspen.Heater.getQ('c44-con')
-    except AspenPlus.UserDifineException.AspenPlus_BlockTypeError:
+    except pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError:
         n += 1
         print("Error" + str(n))  # 應為1
     try:

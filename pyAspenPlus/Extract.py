@@ -1,6 +1,6 @@
 # 匯入自定義錯誤，不然有些函式會找不到哪裡raise錯誤
-from AspenPlus import UserDifineException as UDE
-from AspenPlus.Basic import check_name
+from pyAspenPlus import UserDifineException as UDE
+from pyAspenPlus.Basic import check_name
 
 
 class Extractor:

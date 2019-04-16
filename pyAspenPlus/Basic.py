@@ -1,5 +1,5 @@
 # 匯入自定義錯誤，不然有些函式會找不到哪裡raise錯誤
-from AspenPlus import UserDifineException as UDE
+from pyAspenPlus import UserDifineException as UDE
 from functools import wraps
 
 # 最基本的Aspen類別功能，首次執行此封包要先設定這個類別。

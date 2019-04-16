@@ -1,8 +1,8 @@
 import unittest
-import AspenPlus
+import pyAspenPlus
 
 path = "D:\\Google Cloud\\Python\\Great program for AspenPlus\\TestFile\\DistillationColumn.apw"
-Aspen = AspenPlus.AP(path)
+Aspen = pyAspenPlus.AP(path)
 obj = Aspen.aspen.Tree.FindNode("\Data\Streams\B1\Output\TOT_FLOW")
 
 
@@ -41,7 +41,7 @@ class Stream_test(unittest.TestCase):
 
         # 測試輸入之 sname 不存在檔案中時
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_StreamTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_StreamTypeError,
             "Cannot Find B11 in the AspenFile. Please Check the name you type!!",
             fun,
             'b11')
@@ -60,7 +60,7 @@ class Stream_test(unittest.TestCase):
 
         # 測試輸入之 component 不存在檔案中時
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_ComponentTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_ComponentTypeError,
             "Cannot Find WATERR in the AspenFile. Please Check the name you type!!",
             fun,
             'b1', component='waterr')
@@ -159,7 +159,7 @@ class Stream_test(unittest.TestCase):
 
         # 測試 Aspen.Stream.getMoleFrac 的 sname 找不到物流之Aspen物流錯誤
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_StreamTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_StreamTypeError,
             "Cannot Find B11 in the AspenFile. Please Check the name you type!!",
             Aspen.Stream.getMoleFrac,
             'b11', 'water')
@@ -224,7 +224,7 @@ class Stream_test(unittest.TestCase):
 
         # 測試 Aspen.Stream.getMassFrac 的 sname 找不到物流之Aspen物流錯誤
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_StreamTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_StreamTypeError,
             "Cannot Find B11 in the AspenFile. Please Check the name you type!!",
             Aspen.Stream.getMassFrac,
             'b11', 'water')
@@ -318,7 +318,7 @@ class Distillation_test(unittest.TestCase):
 
         # 測試輸入之 bname 不存在檔案中時
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "Cannot Find C11 in the AspenFile. Please Check the name you type!!",
             fun,
             'c11')
@@ -331,7 +331,7 @@ class Distillation_test(unittest.TestCase):
 
         # 測試輸入 bname 非RadFrac
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "C3-RE is not a RadFrac,please check the name you type!!",
             fun,
             'c3-re')
@@ -393,7 +393,7 @@ class Distillation_test(unittest.TestCase):
 
         # 測試 Aspen.Distillation.setNStage 中 bname 不存在檔案中時
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "Cannot Find C11 in the AspenFile. Please Check the name you type!!",
             Aspen.Distillation.setNStage,
             'c11', set_value=35)
@@ -437,14 +437,14 @@ class Distillation_test(unittest.TestCase):
 
         # 測試輸入 sname 不存在AspenFile當中
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_StreamTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_StreamTypeError,
             'Cannot Find F11 in the AspenFile. Please Check the name you type!!',
             Aspen.Distillation.getNF,
             'c1', sname='f11')
 
         # 測試輸入 sname 不是指定蒸餾塔之進料物流
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_StreamTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_StreamTypeError,
             'F2 is not a feed stream for C1. Please Check the name you type!!',
             Aspen.Distillation.getNF,
             'c1', sname='f2')
@@ -476,7 +476,7 @@ class Distillation_test(unittest.TestCase):
 
         # 測試 Aspen.Distillation.setNF 中 bname 不存在檔案中時
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "Cannot Find C11 in the AspenFile. Please Check the name you type!!",
             Aspen.Distillation.setNF,
             'c11', sname='f1', set_value=15)
@@ -490,14 +490,14 @@ class Distillation_test(unittest.TestCase):
 
         # 測試 Aspen.Distillation.setNF 中 sname 不存在檔案中時
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_StreamTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_StreamTypeError,
             "Cannot Find F11 in the AspenFile. Please Check the name you type!!",
             Aspen.Distillation.setNF,
             'c1', sname='f11', set_value=15)
 
         # 測試 Aspen.Distillation.setNF 中 sname 非指定蒸餾塔之進料物流
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_StreamTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_StreamTypeError,
             "F2 is not a feed stream for C1. Please Check the name you type!!",
             Aspen.Distillation.setNF,
             'c1', sname='f2', set_value=15)
@@ -548,7 +548,7 @@ class Distillation_test(unittest.TestCase):
 
         # 測試　Aspen.Distillation.getDiameter 中 bname 如無開啟size功能
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_SizingError,
+            pyAspenPlus.UserDifineException.AspenPlus_SizingError,
             "'Sizing' function dosen't open!!!",
             Aspen.Distillation.getDiameter,
             'c1')
@@ -705,7 +705,7 @@ class Heater_test(unittest.TestCase):
 
         # 測試輸入之 bname 不存在檔案中時
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "Cannot Find C11 in the AspenFile. Please Check the name you type!!",
             fun,
             'c11')
@@ -718,7 +718,7 @@ class Heater_test(unittest.TestCase):
 
         # 測試輸入 bname 非 Heater
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "C3-RE is not a Heater,please check the name you type!!",
             fun,
             'c3-re')
@@ -802,7 +802,7 @@ class Heater_test(unittest.TestCase):
 
         # 測試 Aspen.Heater.getArea 中 bname 不存在檔案中時
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "Cannot Find C11 in the AspenFile. Please Check the name you type!!",
             Aspen.Heater.getArea,
             'c11', exchanger_type='CONDENSER')
@@ -852,7 +852,7 @@ class Extractor_test(unittest.TestCase):
 
         # 測試輸入之 bname 不存在檔案中時
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "Cannot Find C11 in the AspenFile. Please Check the name you type!!",
             fun,
             'c11')
@@ -865,7 +865,7 @@ class Extractor_test(unittest.TestCase):
 
         # 測試輸入 bname 非 Extractor
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "C3-RE is not a Extract,please check the name you type!!",
             fun,
             'c3-re')
@@ -907,7 +907,7 @@ class Extractor_test(unittest.TestCase):
 
         # 測試 Aspen.Extractor.setNStage 中 bname 不存在檔案中時
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "Cannot Find C11 in the AspenFile. Please Check the name you type!!",
             Aspen.Extractor.setNStage,
             'c11', set_value=35)
@@ -965,7 +965,7 @@ class Decanter_test(unittest.TestCase):
 
         # 測試輸入之 bname 不存在檔案中時
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "Cannot Find C11 in the AspenFile. Please Check the name you type!!",
             fun,
             'c11')
@@ -978,7 +978,7 @@ class Decanter_test(unittest.TestCase):
 
         # 測試輸入 bname 非 Decanter
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "C3-RE is not a Decanter,please check the name you type!!",
             fun,
             'c3-re')
@@ -1089,7 +1089,7 @@ class Cost_test(unittest.TestCase):
 
         # 測試輸入之 bname 不存在檔案中時
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "Cannot Find C11 in the AspenFile. Please Check the name you type!!",
             fun,
             'c11')
@@ -1116,21 +1116,21 @@ class Cost_test(unittest.TestCase):
 
         # 測試　Aspen.Cost.SteamType 中 bname 非指定三種block錯誤
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "C4-SPLIT is not a RadFrac or a Heater or a Flash2,please check the name you type!!",
             Aspen.Cost.SteamType,
             'c4-split')
 
         # 測試　Aspen.Cost.SteamType 中 bname 為RadFrac但沒有reboiler
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "The specified column doesn't have reboiler. Please check the name you type!!!",
             Aspen.Cost.SteamType,
             'c3')
 
         # 測試　Aspen.Cost.SteamType 中 bname 指定三種block但不是加熱作用錯誤
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "The duty of specified Heater is equal or smaller than Zero. It is no need to use steam !!!",
             Aspen.Cost.SteamType,
             'c4-con')
@@ -1151,7 +1151,7 @@ class Cost_test(unittest.TestCase):
 
         # 測試 Aspen.Cost.SteamType 無適用蒸氣
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_SteamError,
+            pyAspenPlus.UserDifineException.AspenPlus_SteamError,
             "The temperature difference between outlet stream and utility cannot match the required minimum value. Please Check your design detail !!!",
             Aspen.Cost.SteamType,
             'c1', 1000)
@@ -1170,28 +1170,28 @@ class Cost_test(unittest.TestCase):
 
         # 測試　Aspen.Cost.WaterType 中 bname 非指定兩種block錯誤
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "C4-SPLIT is not a RadFrac or a Heater,please check the name you type!!",
             Aspen.Cost.WaterType,
             'c4-split')
 
         # 測試　Aspen.Cost.WaterType 中 bname 為RadFrac但沒有condenser
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "The specified column doesn't have condenser. Please check the name you type!!!",
             Aspen.Cost.WaterType,
             'c4')
 
         # 測試　Aspen.Cost.WaterType 中 bname 指定兩種block但不是冷卻作用錯誤
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_BlockTypeError,
+            pyAspenPlus.UserDifineException.AspenPlus_BlockTypeError,
             "The duty of specified Heater is equal or greater than Zero. It is no need to use water !!!",
             Aspen.Cost.WaterType,
             'c5-re')
 
         # 測試 Aspen.Cost.SteamType 無適用冷卻物質
         self.assertRaisesRegex(
-            AspenPlus.UserDifineException.AspenPlus_WaterError,
+            pyAspenPlus.UserDifineException.AspenPlus_WaterError,
             "The temperature of outlet stream may be too low. Please Check your design detail !!!",
             Aspen.Cost.WaterType,
             'cooler')

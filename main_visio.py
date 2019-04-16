@@ -1,5 +1,5 @@
-import AspenPlus
-import AspenPlus.Visio as Visio
+import pyAspenPlus
+import pyAspenPlus.Visio as Visio
 import os
 import time
 
@@ -7,7 +7,7 @@ if __name__=="__main__":
     # 先開啟AspenFile
     aspen_path = os.path.join(os.path.abspath('.'), "TestFile", "DistillationColumn.apw")
     path_visio = os.path.join(os.path.abspath('.'), "TestFile/TextFile/Visio_test.vsdx")
-    Aspen = AspenPlus.AP(aspen_path)
+    Aspen = pyAspenPlus.AP(aspen_path)
     Visio = Visio.Visio(Aspen, path_visio)
 
     Visio.Show(True)

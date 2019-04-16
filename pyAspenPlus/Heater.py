@@ -1,6 +1,6 @@
 # 匯入自定義錯誤，不然有些函式會找不到哪裡raise錯誤
-from AspenPlus import UserDifineException as UDE
-from AspenPlus.Basic import check_name
+from pyAspenPlus import UserDifineException as UDE
+from pyAspenPlus.Basic import check_name
 
 
 class Heater:
@@ -155,10 +155,10 @@ class Heater:
 
 
 if __name__ == "__main__":
-    import AspenPlus
+    import pyAspenPlus
 
     path = "D:\\Google Cloud\\Python\\Great program for AspenPlus\\TestFile\\DistillationColumn.apw"
-    Aspen = AspenPlus.AP(path)
+    Aspen = pyAspenPlus.AP(path)
 
     print(Aspen.Heater.getQ('c4-con'))
     # print(Aspen.Heater.getArea('c4-con', exchanger_type='CONDENSER'))
