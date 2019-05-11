@@ -1,0 +1,2338 @@
+
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+ + +                                                                         + +
+ + +                      ASPEN PLUS CALCULATION HISTORY                     + +
+ + +                                                                         + +
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+
+ ASPEN PLUS IS A TRADEMARK OF           HOTLINE:
+ ASPEN TECHNOLOGY, INC.                 U.S.A. 888/996-7100
+ 781/221-6400                           EUROPE (44) 1189-226555
+
+ PLATFORM: WINDOWS                                       FEBRUARY 24, 2019   
+ VERSION: 36.0   Build 249                               SUNDAY      
+ INSTALLATION:                                           1:47:41 P.M.        
+
+ THIS COPY OF ASPEN PLUS LICENSED TO NATIONAL TAIWAN UNIV            
+
+
+      ASPEN PLUS (R) IS A PROPRIETARY PRODUCT OF ASPEN TECHNOLOGY, INC.
+      (ASPENTECH), AND MAY BE USED ONLY UNDER AGREEMENT WITH ASPENTECH.
+      RESTRICTED RIGHTS LEGEND:  USE, REPRODUCTION, OR DISCLOSURE BY THE
+      U.S. GOVERNMENT IS SUBJECT TO RESTRICTIONS SET FORTH IN 
+      (i) FAR 52.227-14, Alt. III, (ii) FAR 52.227-19, (iii) DFARS 
+      252.227-7013(c)(1)(ii), or (iv) THE ACCOMPANYING LICENSE AGREEMENT,
+      AS APPLICABLE. FOR PURPOSES OF THE FAR, THIS SOFTWARE SHALL BE DEEMED
+      TO BE "UNPUBLISHED" AND LICENSED WITH DISCLOSURE PROHIBITIONS.
+      CONTRACTOR/SUBCONTRACTOR: ASPEN TECHNOLOGY, INC. 20 CROSBY DRIVE,
+      BEDFORD, MA 01730.
+ *** INPUT SUMMARY ***
+
+ >>CURRENT RUN
+
+   ORIGINAL RUN                           FEBRUARY 24, 2019   
+   1:47:41 P.M.                           SUNDAY      
+   INPUT FILE: _4658spw.inm
+   RUN ID : _4658spw
+          1    ;
+          2    ;Input file created by Aspen Plus Rel. 36.0 at 13:47:40 Sun Feb 24, 2019
+          3    ;Directory D:\Google Cloud\Python\Great program for AspenPlus\TestFile  Runid distillationcolumn
+          4    ;
+          5
+          6
+          7    DYNAMICS
+          8        DYNAMICS RESULTS=ON
+          9
+         10    IN-UNITS SI FLOW='kg/hr' MASS-FLOW='kg/hr' MOLE-FLOW='kmol/hr'  &
+         11            VOLUME-FLOW='cum/hr' ENTHALPY-FLO=kW POWER=kW PRESSURE=atm  &
+         12            PDROP=atm SHORT-LENGTH=mm
+         13
+         14    DEF-STREAMS CONVEN ALL
+         15
+         16    MODEL-OPTION
+         17
+         18    DESCRIPTION "
+         19        Chemical Simulation with Metric Units :
+         20        C, bar, kg/hr, kmol/hr, Gcal/hr, cum/hr.
+         21
+         22        Property Method: NRTL
+         23
+         24        Flow basis for input: Mole
+         25
+         26        Stream report composition: Mole flow
+         27        "
+         28
+         29    DATABANKS 'APV100 PURE36' / 'APV100 AQUEOUS' / 'APV100 SOLIDS' &
+         30             / 'APV100 INORGANIC' / 'APESV100 AP-EOS' /  &
+         31            'NISTV100 NIST-TRC' / NOASPENPCD
+         32
+         33    PROP-SOURCES 'APV100 PURE36' / 'APV100 AQUEOUS' /  &
+         34            'APV100 SOLIDS' / 'APV100 INORGANIC' / 'APESV100 AP-EOS' &
+         35             / 'NISTV100 NIST-TRC'
+         36
+         37    COMPONENTS
+         38        WATER H2O /
+         39        ETHANOL C2H6O-2 /
+         40        BENZENE C6H6
+         41
+         42    SOLVE
+         43        RUN-MODE MODE=SIM
+         44
+         45    FLOWSHEET
+         46        BLOCK C1 IN=F1 OUT=D1 B1
+         47        BLOCK C2-SIZE IN=F2 OUT=D2 B2
+         48        BLOCK C3 IN=F3 RE3-VAP OUT=D3 C3-B
+         49        BLOCK C3-RE IN=C3-B OUT=RE3-VAP B3
+         50        BLOCK C4 IN=F4 REFLUX4 OUT=C4-V B4
+         51        BLOCK C4-CON IN=C4-V OUT=CON4-L
+         52        BLOCK C4-SPLIT IN=CON4-L OUT=REFLUX4 D4
+         53        BLOCK C5-FLASH IN=C5-REO OUT=RE5-VAP B5
+         54        BLOCK C5 IN=F5 RE5-VAP OUT=D5 C5-B
+         55        BLOCK C5-RE IN=C5-B OUT=C5-REO
+         56        BLOCK COOLER IN=CI OUT=CO
+         57
+         58    PROPERTIES NRTL
+         59
+         60    PROP-DATA NRTL-1
+         61        IN-UNITS MET VOLUME-FLOW='cum/hr' ENTHALPY-FLO='Gcal/hr'  &
+         62            HEAT-TRANS-C='kcal/hr-sqm-K' PRESSURE=bar TEMPERATURE=C  &
+         63            VOLUME=cum DELTA-T=C HEAD=meter MASS-DENSITY='kg/cum'  &
+         64            MOLE-ENTHALP='kcal/mol' MASS-ENTHALP='kcal/kg'  &
+         65            MOLE-VOLUME='cum/kmol' HEAT=Gcal MOLE-CONC='mol/l'  &
+         66            PDROP=bar SHORT-LENGTH=mm
+         67        PROP-LIST NRTL
+         68        BPVAL WATER ETHANOL 3.457800000 -586.0809000 .3000000000  &
+         69            0.0 0.0 0.0 24.99000000 100.0000000
+         70        BPVAL ETHANOL WATER -.8009000000 246.1800000 .3000000000  &
+         71            0.0 0.0 0.0 24.99000000 100.0000000
+         72        BPVAL WATER BENZENE 140.0874000 -5954.307100 .2000000000  &
+         73            0.0 -20.02540000 0.0 .8000000000 77.00000000
+         74        BPVAL BENZENE WATER 45.19050000 591.3676000 .2000000000 0.0  &
+         75            -7.562900000 0.0 .8000000000 77.00000000
+         76        BPVAL ETHANOL BENZENE .5686000000 -54.80440000 .3000000000  &
+         77            0.0 0.0 0.0 20.00000000 80.10000000
+         78        BPVAL BENZENE ETHANOL -.9155000000 882.0288000 .3000000000  &
+         79            0.0 0.0 0.0 20.00000000 80.10000000
+         80
+         81    STREAM CI
+         82        SUBSTREAM MIXED TEMP=298. PRES=1.
+         83        MOLE-FLOW WATER 10.
+         84
+         85    STREAM F1
+         86        SUBSTREAM MIXED TEMP=298.1500000 PRES=2. MOLE-FLOW=100.
+         87        MOLE-FRAC WATER 0.5 / ETHANOL 0.5
+         88
+         89    STREAM F2
+         90        SUBSTREAM MIXED TEMP=298.1500000 PRES=2. MOLE-FLOW=100.
+         91        MOLE-FRAC WATER 0.5 / ETHANOL 0.5
+         92
+         93    STREAM F3
+         94        SUBSTREAM MIXED TEMP=298.1500000 PRES=2. MOLE-FLOW=100.
+         95        MOLE-FRAC WATER 0.5 / ETHANOL 0.5
+         96
+         97    STREAM F4
+         98        SUBSTREAM MIXED TEMP=298.1500000 PRES=2. MOLE-FLOW=100.
+         99        MOLE-FRAC WATER 0.5 / ETHANOL 0.5
+        100
+        101    STREAM F5
+        102        SUBSTREAM MIXED TEMP=298.1500000 PRES=2. MOLE-FLOW=100.
+        103        MOLE-FRAC WATER 0.5 / ETHANOL 0.5
+        104
+        105    BLOCK C4-SPLIT FSPLIT
+        106        MOLE-FLOW D4 50.
+        107
+        108    BLOCK C4-CON HEATER
+        109        PARAM PRES=0. VFRAC=0. DPPARMOPT=NO
+        110
+        111    BLOCK C5-RE HEATER
+        112        PARAM PRES=0. DUTY=1278.88 DPPARMOPT=NO
+        113
+        114    BLOCK COOLER HEATER
+        115        PARAM TEMP=200. PRES=0. DPPARMOPT=NO
+        116
+        117    BLOCK C3-RE FLASH2
+        118        PARAM PRES=0. DUTY=1278.88
+        119
+        120    BLOCK C5-FLASH FLASH2
+        121        PARAM PRES=0. DUTY=0.
+        122
+        123    BLOCK C1 RADFRAC
+        124        PARAM NSTAGE=35 ALGORITHM=STANDARD MAXOL=25 DAMPING=NONE
+        125        COL-CONFIG CONDENSER=TOTAL
+        126        FEEDS F1 15 ON-STAGE
+        127        PRODUCTS D1 1 L / B1 35 L
+        128        P-SPEC 1 1.
+        129        COL-SPECS B:F=0.5 DP-STAGE=0.0068 MOLE-RR=1.
+        130
+        131    BLOCK C2-SIZE RADFRAC
+        132        SUBOBJECTS INTERNALS = CS-1
+        133        PARAM NSTAGE=35 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+        134            DAMPING=NONE
+        135        PARAM2 STATIC-DP=YES
+        136        COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+        137        FEEDS F2 15 ON-STAGE
+        138        PRODUCTS D2 1 L / B2 35 L
+        139        P-SPEC 1 1.
+        140        COL-SPECS B:F=0.5 DP-STAGE=0.0068 MOLE-RR=1.
+        141        REPORT NOHYDRAULIC
+        142        INTERNALS CS-1 STAGE1=2 STAGE2=34 P-UPDATE=NO
+        143        TRAY-SIZE 1 2 34 SIEVE
+        144
+        145    BLOCK C3 RADFRAC
+        146        PARAM NSTAGE=34 ALGORITHM=STANDARD MAXOL=25 DAMPING=NONE
+        147        COL-CONFIG CONDENSER=TOTAL REBOILER=NONE
+        148        FEEDS F3 15 ON-STAGE / RE3-VAP 34 ON-STAGE
+        149        PRODUCTS D3 1 L / C3-B 34 L
+        150        P-SPEC 1 1.
+        151        COL-SPECS DP-STAGE=0.0068 MOLE-RR=1.
+        152
+        153    BLOCK C4 RADFRAC
+        154        PARAM NSTAGE=35 ALGORITHM=STANDARD MAXOL=25 DAMPING=NONE
+        155        COL-CONFIG CONDENSER=NONE
+        156        FEEDS F4 15 ON-STAGE / REFLUX4 1 ON-STAGE
+        157        PRODUCTS B4 35 L / C4-V 1 V
+        158        P-SPEC 1 1.
+        159        COL-SPECS QN=1272.88 DP-STAGE=0.0068
+        160
+        161    BLOCK C5 RADFRAC
+        162        PARAM NSTAGE=34 ALGORITHM=STANDARD MAXOL=25 DAMPING=NONE
+        163        COL-CONFIG CONDENSER=TOTAL REBOILER=NONE
+        164        FEEDS F5 15 ON-STAGE / RE5-VAP 34 ON-STAGE
+        165        PRODUCTS D5 1 L / C5-B 34 L
+        166        P-SPEC 1 1.
+        167        COL-SPECS DP-STAGE=0.0068 MOLE-RR=1.
+        168
+        169    EO-CONV-OPTI
+        170
+        171    STREAM-REPOR MOLEFLOW
+        172    ;
+        173    ;
+        174    ;
+        175    ;
+        176    ;
+ *** INPUT TRANSLATOR MESSAGES ***
+
+  *** THIS RUN USES THE PROPERTIES ENTERPRISE DATABASE ***
+      SQLLOCALDB.APESV100 : (DATAVERSION - 36.0.0.1)                          
+      SQLLOCALDB.APV100 : (DATAVERSION - 36.0.0.21)                           
+      SQLLOCALDB.FACTV100 : (DATAVERSION - 36.0.0.1)                          
+      SQLLOCALDB.NISTV100 : (DATAVERSION - 36.0.0.15)                         
+
+      INFORMATION WHILE CHECKING INPUT SPECIFICATIONS                           
+      BLOCK NAME: C4    MODEL NAME: RADFRAC                    (ZUDL03.7380)    
+      AN INITIAL TEMPERATURE PROFILE SHOULD BE SPECIFIED                        
+      IN SENTENCE "T-EST" IF "Q1" AND "QN" ARE SPECIFIED.                       
+ 
+ 
+
+ PDF updated                                                                      TIME =      2.45
+
+ *** CALCULATION TRACE ***
+
+
+ *** FLOWSHEET ANALYSIS MESSAGES ***
+
+ FLOWSHEET CONNECTIVITY BY STREAMS       
+
+   STREAM     SOURCE     DEST           STREAM     SOURCE     DEST
+   F1         ----       C1             F2         ----       C2-SIZE 
+   F3         ----       C3             F4         ----       C4      
+   F5         ----       C5             CI         ----       COOLER  
+   D1         C1         ----           B1         C1         ----    
+   D2         C2-SIZE    ----           B2         C2-SIZE    ----    
+   D3         C3         ----           C3-B       C3         C3-RE   
+   RE3-VAP    C3-RE      C3             B3         C3-RE      ----    
+   C4-V       C4         C4-CON         B4         C4         ----    
+   CON4-L     C4-CON     C4-SPLIT       REFLUX4    C4-SPLIT   C4      
+   D4         C4-SPLIT   ----           RE5-VAP    C5-FLASH   C5      
+   B5         C5-FLASH   ----           D5         C5         ----    
+   C5-B       C5         C5-RE          C5-REO     C5-RE      C5-FLASH
+   CO         COOLER     ----                                         
+
+ FLOWSHEET CONNECTIVITY BY BLOCKS        
+
+   BLOCK        INLETS                         OUTLETS
+   C1           F1                             D1 B1                       
+   C2-SIZE      F2                             D2 B2                       
+   C3           F3 RE3-VAP                     D3 C3-B                     
+   C3-RE        C3-B                           RE3-VAP B3                  
+   C4           F4 REFLUX4                     C4-V B4                     
+   C4-CON       C4-V                           CON4-L                      
+   C4-SPLIT     CON4-L                         REFLUX4 D4                  
+   C5-FLASH     C5-REO                         RE5-VAP B5                  
+   C5           F5 RE5-VAP                     D5 C5-B                     
+   C5-RE        C5-B                           C5-REO                      
+   COOLER       CI                             CO                          
+
+      BLOCK $OLVER01 (METHOD: WEGSTEIN) HAS BEEN DEFINED TO CONVERGE
+               STREAMS: C5-B
+
+      BLOCK $OLVER02 (METHOD: WEGSTEIN) HAS BEEN DEFINED TO CONVERGE
+               STREAMS: REFLUX4
+
+      BLOCK $OLVER03 (METHOD: WEGSTEIN) HAS BEEN DEFINED TO CONVERGE
+               STREAMS: RE3-VAP
+
+      COMPUTATION ORDER FOR THE FLOWSHEET IS:
+      COOLER 
+      $OLVER01 C5-RE C5-FLASH C5 
+      (RETURN $OLVER01) 
+      $OLVER02 C4 C4-CON C4-SPLIT 
+      (RETURN $OLVER02) 
+      $OLVER03 C3 C3-RE 
+      (RETURN $OLVER03) 
+      C2-SIZE C1 
+
+Calculations begin                                                              time      0.47
+
+
+ SIMULATION CALCULATIONS BEGIN                                                    TIME =      0.47
+
+      ENTHALPY CALCULATION FOR INLET STREAM CI OF BLOCK COOLER                    TIME =      0.47
+      KODE = 2  NTRIAL =   1  T = 298.0000  P =  101325.      V =  0.00000      Q =  0.00000    
+
+      UOS BLOCK COOLER   MODEL: HEATER                                            TIME =      0.47
+      KODE = 2  NTRIAL =   1  T = 200.0000  P =  101325.      V =  0.00000      Q = -19864.9    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.47
+      ITER   0 For Tear Streams: C5-B
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.47
+
+  *   WARNING WHILE EXECUTING UNIT OPERATIONS BLOCK: "C5-RE" (MODEL: "HEATER")  
+                                                               (UHE01.4)        
+      ZERO FEED TO THE BLOCK.  BLOCK BYPASSED                                   
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.47
+
+  *   WARNING WHILE EXECUTING UNIT OPERATIONS BLOCK: "C5-FLASH" (MODEL:         
+      "FLASH2")                                                (UFL01I.1)       
+      ZERO FEED TO THE BLOCK.  BLOCK BYPASSED                                   
+
+      ENTHALPY CALCULATION FOR INLET STREAM F5 OF BLOCK C5                        TIME =      0.47
+      KODE = 2  NTRIAL =   2  T = 298.1500  P =  202650.      V =  0.00000      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.47
+
+  *** SEVERE ERROR WHILE EXECUTING UNIT OPERATIONS BLOCK: "C5" (MODEL:          
+      "RADFRAC")                                               (UDL03A.7660)    
+      A VAPOR FEED/PUMPAROUND TO THE BOTTOM STAGE IS REQUIRED WHEN              
+      "QN=0" IS SPECIFIED IN "COL-SPECS"; REQUIRED FEED/PUMPAROUND              
+      HAS ZERO FLOW.                                                            
+
+  *   WARNING WHILE EXECUTING UNIT OPERATIONS BLOCK: "C5" (MODEL: "RADFRAC")    
+                                                               (UDL3II.7200)    
+      REST OF BLOCK BYPASSED DUE TO SEVERE ERROR.                               
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.47
+      ITER   1 For Tear Streams: C5-B
+
+  LOOP $OLVER01 ITER    1:   3 VARS NOT CONVERGED, MAX ERR/TOL     0.10000E+07    TIME =      0.48
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.48
+      NO. TEMP ITER =    6     TEMP =  966.370    
+      KODE = 1  NTRIAL =   5  T = 966.3700  P =  124062.      V =  1.00000      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.48
+      NO. TEMP ITER =    6     TEMP =  966.370    
+      KODE = 1  NTRIAL =   5  T = 966.3700  P =  124062.      V =  1.00000      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.48
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    3      289.78    
+          2    1    3      178.29    
+          3    1    3      62.576    
+          4    1    3      24.644    
+          5    1    3      14.629    
+          6    1    3      16.881    
+          7    1    3      14.429    
+          8    1    3      5.1553    
+          9    1    3      3.0573    
+         10    1    3      2.4768    
+         11    1    3      1.3403    
+         12    1    2     0.22094    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.49
+      ITER   2 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      NO. TEMP ITER =    6     TEMP =  111.338    
+      KODE = 1  NTRIAL =   2  T = 111.3378  P =  124062.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER01 ITER    2:   4 VARS NOT CONVERGED, MAX ERR/TOL      16044.        TIME =      0.49
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.49
+      KODE = 1  NTRIAL =   5  T = 359.0783  P =  124062.      V = 0.346752      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.49
+      KODE = 1  NTRIAL =   5  T = 359.0783  P =  124062.      V = 0.346752      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.50
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      115.26    
+          2    1    3      49.142    
+          3    1    3      31.458    
+          4    1    3      18.179    
+          5    1    3      11.841    
+          6    1    2      5.7469    
+          7    1    2      2.5840    
+          8    1    2      1.1756    
+          9    1    2     0.53097    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.50
+      ITER   3 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      NO. TEMP ITER =    3     TEMP =  84.1593    
+      NO. TEMP ITER =    3     TEMP =  84.1593    
+      KODE = 1  NTRIAL =   2  T =  84.1593  P =  124062.      V =  0.00000      Q =  0.00000    
+
+  *** SEVERE ERROR WHILE EXECUTING CONVERGENCE BLOCK: "$OLVER01" (MODEL:        
+      "WEGSTEIN")                                              (SFINAL.1)       
+      FLASH CALCULATION HAS DRIVEN THE TEMPERATURE DOWN TO THE LOWER LIMIT OF   
+      84.1593  DEGREES K., BUT ENTHALPY BALANCE IS STILL NOT SATISFIED.  HEAT   
+      DUTY SPECIFICATIONS MAY BE INFEASIBLE.  ERRORS OCCURRED IN FLASH          
+      CALCULATIONS FOR TEAR STREAM  C5-B .                                      
+
+  LOOP $OLVER01 ITER    3:   4 VARS NOT CONVERGED, MAX ERR/TOL      1840.6        TIME =      0.50
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.50
+      NO. TEMP ITER =    6     TEMP =  274.145    
+      KODE = 1  NTRIAL =   2  T = 274.1446  P =  124062.      V =  0.00000      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.50
+      NO. TEMP ITER =    6     TEMP =  274.145    
+      KODE = 1  NTRIAL =   2  T = 274.1446  P =  124062.      V =  0.00000      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.50
+
+  *** SEVERE ERROR WHILE EXECUTING UNIT OPERATIONS BLOCK: "C5" (MODEL:          
+      "RADFRAC")                                               (UDL03A.7660)    
+      A VAPOR FEED/PUMPAROUND TO THE BOTTOM STAGE IS REQUIRED WHEN              
+      "QN=0" IS SPECIFIED IN "COL-SPECS"; REQUIRED FEED/PUMPAROUND              
+      HAS ZERO FLOW.                                                            
+
+  *   WARNING WHILE EXECUTING UNIT OPERATIONS BLOCK: "C5" (MODEL: "RADFRAC")    
+                                                               (UDL3II.7200)    
+      REST OF BLOCK BYPASSED DUE TO SEVERE ERROR.                               
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.50
+      ITER   4 For Tear Streams: C5-B
+
+  LOOP $OLVER01 ITER    4:   4 VARS NOT CONVERGED, MAX ERR/TOL     -7845.8        TIME =      0.50
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.51
+      NO. TEMP ITER =    6     TEMP =  966.370    
+      KODE = 1  NTRIAL =   5  T = 966.3700  P =  124062.      V =  1.00000      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.51
+      NO. TEMP ITER =    6     TEMP =  966.370    
+      KODE = 1  NTRIAL =   5  T = 966.3700  P =  124062.      V =  1.00000      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.51
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    3      289.78    
+          2    1    3      178.29    
+          3    1    3      62.576    
+          4    1    3      24.644    
+          5    1    3      14.629    
+          6    1    3      16.881    
+          7    1    3      14.429    
+          8    1    3      5.1553    
+          9    1    3      3.0573    
+         10    1    3      2.4768    
+         11    1    3      1.3403    
+         12    1    2     0.22094    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.51
+      ITER   5 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      KODE = 1  NTRIAL =   5  T = 359.1270  P =  124062.      V = 4.195368E-07  Q =  0.00000    
+
+  LOOP $OLVER01 ITER    5:   4 VARS NOT CONVERGED, MAX ERR/TOL      16044.        TIME =      0.51
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.51
+      NO. TEMP ITER =    5     TEMP =  434.335    
+      KODE = 1  NTRIAL =   5  T = 434.3348  P =  124062.      V =  1.00000      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.51
+      NO. TEMP ITER =    5     TEMP =  434.335    
+      KODE = 1  NTRIAL =   5  T = 434.3348  P =  124062.      V =  1.00000      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.51
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    6      84.136    
+          2    1    3      56.877    
+          3    1    3      11.819    
+          4    1    2      6.8661    
+          5    1    2      1.7964    
+          6    1    2     0.78784    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.52
+      ITER   6 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      KODE = 1  NTRIAL =   4  T = 363.8015  P =  124062.      V = 0.277228      Q =  0.00000    
+
+  LOOP $OLVER01 ITER    6:   4 VARS NOT CONVERGED, MAX ERR/TOL      6025.2        TIME =      0.52
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.52
+      KODE = 1  NTRIAL =   5  T = 368.4748  P =  124062.      V = 0.563984      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.52
+      KODE = 1  NTRIAL =   5  T = 368.4748  P =  124062.      V = 0.563984      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.52
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      611.85    
+          2    1    5      559.42    
+          3    1    5      1034.2    
+          4    1    3      220.92    
+          5    1    4      216.71    
+          6    1    3      78.100    
+          7    1    3      40.449    
+          8    1    3      38.557    
+          9    1    3      3.4681    
+         10    1    3      2.7738    
+         11    1    3      2.3994    
+         12    1    3      1.1936    
+         13    1    2     0.68212    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.53
+      ITER   7 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      NO. TEMP ITER =    6     TEMP =  119.517    
+      KODE = 1  NTRIAL =   2  T = 119.5171  P =  124062.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER01 ITER    7:   4 VARS NOT CONVERGED, MAX ERR/TOL     -4941.1        TIME =      0.53
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.53
+      KODE = 1  NTRIAL =   4  T = 361.3606  P =  124062.      V = 0.180770      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.53
+      KODE = 1  NTRIAL =   4  T = 361.3606  P =  124062.      V = 0.180770      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.53
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      402.48    
+          2    1    5      80.612    
+          3    1    5      50.100    
+          4    1    5      26.507    
+          5    1    5      22.750    
+          6    1    5      14.102    
+          7    1    5      6.0849    
+          8    1    5      2.6197    
+          9    1    5      1.2051    
+         10    1    4     0.60625    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.54
+      ITER   8 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      NO. TEMP ITER =    5     TEMP =  336.796    
+      KODE = 1  NTRIAL =   2  T = 336.7959  P =  124062.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER01 ITER    8:   4 VARS NOT CONVERGED, MAX ERR/TOL     -4805.4        TIME =      0.54
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.54
+      KODE = 1  NTRIAL =   4  T = 361.2975  P =  124062.      V = 0.892905      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.54
+      KODE = 1  NTRIAL =   4  T = 361.2975  P =  124062.      V = 0.892905      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.54
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    6      65.168    
+          2    1    3      42.494    
+          3    1    2      8.1044    
+          4    1    3      5.0578    
+          5    1    3      1.9929    
+          6    1    3     0.96666    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.54
+      ITER   9 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      NO. TEMP ITER =    6     TEMP =  232.083    
+      KODE = 1  NTRIAL =   2  T = 232.0825  P =  124062.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER01 ITER    9:   4 VARS NOT CONVERGED, MAX ERR/TOL      4979.3        TIME =      0.54
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.55
+      KODE = 1  NTRIAL =   4  T = 358.7038  P =  124062.      V = 0.337121      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.55
+      KODE = 1  NTRIAL =   4  T = 358.7038  P =  124062.      V = 0.337121      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.55
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      22.863    
+          2    1    3      6.6429    
+          3    1    3      2.5514    
+          4    1    2      1.9580    
+          5    1    2      1.6831    
+          6    1    2      1.2191    
+          7    1    2     0.59616    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.55
+      ITER  10 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      KODE = 1  NTRIAL =   4  T = 358.0505  P =  124062.      V = 4.593748E-07  Q =  0.00000    
+
+  LOOP $OLVER01 ITER   10:   4 VARS NOT CONVERGED, MAX ERR/TOL     -2458.0        TIME =      0.55
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.55
+      KODE = 1  NTRIAL =   6  T = 360.5408  P =  124062.      V = 0.835319      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.55
+      KODE = 1  NTRIAL =   6  T = 360.5408  P =  124062.      V = 0.835319      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.55
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    6      72.104    
+          2    1    3      49.886    
+          3    1    3      9.7440    
+          4    1    2      6.0675    
+          5    1    2      1.8515    
+          6    1    3     0.92441    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.56
+      ITER  11 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      KODE = 1  NTRIAL =   3  T = 358.4463  P =  124062.      V = 3.215347E-06  Q =  0.00000    
+
+  LOOP $OLVER01 ITER   11:   4 VARS NOT CONVERGED, MAX ERR/TOL      3281.9        TIME =      0.56
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.56
+      KODE = 1  NTRIAL =   5  T = 360.8025  P =  124062.      V = 0.697128      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.56
+      KODE = 1  NTRIAL =   5  T = 360.8025  P =  124062.      V = 0.697128      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.56
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      6.6399    
+          2    1    3      4.2910    
+          3    1    3     0.91711    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.56
+      ITER  12 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      NO. TEMP ITER =    4     TEMP =  357.146    
+      KODE = 1  NTRIAL =   2  T = 357.1455  P =  124062.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER01 ITER   12:   4 VARS NOT CONVERGED, MAX ERR/TOL     -129.60        TIME =      0.56
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.57
+      KODE = 1  NTRIAL =   4  T = 360.9176  P =  124062.      V = 0.693379      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.57
+      KODE = 1  NTRIAL =   4  T = 360.9176  P =  124062.      V = 0.693379      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.57
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      1.7888    
+          2    1    3      1.1280    
+          3    1    3     0.41006    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.57
+      ITER  13 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      KODE = 1  NTRIAL =   5  T = 358.5307  P =  124062.      V = 7.638803E-03  Q =  0.00000    
+
+  LOOP $OLVER01 ITER   13:   4 VARS NOT CONVERGED, MAX ERR/TOL     -67.580        TIME =      0.57
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.57
+      KODE = 1  NTRIAL =   4  T = 361.1530  P =  124062.      V = 0.707970      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.57
+      KODE = 1  NTRIAL =   4  T = 361.1530  P =  124062.      V = 0.707970      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.57
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      7.5875    
+          2    1    3      5.1044    
+          3    1    3      1.0161    
+          4    1    3     0.63647    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.57
+      ITER  14 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      KODE = 1  NTRIAL =   2  T = 358.5501  P =  124062.      V = 6.108419E-04  Q =  0.00000    
+
+  LOOP $OLVER01 ITER   14:   4 VARS NOT CONVERGED, MAX ERR/TOL      148.94        TIME =      0.57
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.58
+      KODE = 1  NTRIAL =   3  T = 361.1433  P =  124062.      V = 0.695476      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.58
+      KODE = 1  NTRIAL =   3  T = 361.1433  P =  124062.      V = 0.695476      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.58
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    4      1.0277    
+          2    1    2     0.77130    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.58
+      ITER  15 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      KODE = 1  NTRIAL =   2  T = 358.5430  P =  124062.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER01 ITER   15:   4 VARS NOT CONVERGED, MAX ERR/TOL     -46.130        TIME =      0.58
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.58
+      KODE = 1  NTRIAL =   3  T = 361.1367  P =  124062.      V = 0.697130      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.58
+      KODE = 1  NTRIAL =   3  T = 361.1367  P =  124062.      V = 0.697130      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.58
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    4     0.90970    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.58
+      ITER  16 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      KODE = 1  NTRIAL =   4  T = 358.5419  P =  124062.      V = 1.578589E-04  Q =  0.00000    
+
+  LOOP $OLVER01 ITER   16:   3 VARS NOT CONVERGED, MAX ERR/TOL     -5.4880        TIME =      0.58
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.58
+      KODE = 1  NTRIAL =   1  T = 361.1354  P =  124062.      V = 0.697515      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.58
+      KODE = 1  NTRIAL =   1  T = 361.1354  P =  124062.      V = 0.697515      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.58
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    4      1.1798    
+          2    1    2     0.90224    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.59
+      ITER  17 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      NO. TEMP ITER =    4     TEMP =  358.536    
+      KODE = 1  NTRIAL =   1  T = 358.5360  P =  124062.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER01 ITER   17:   3 VARS NOT CONVERGED, MAX ERR/TOL      1.4223        TIME =      0.59
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.59
+      KODE = 1  NTRIAL =   2  T = 361.1329  P =  124062.      V = 0.697263      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.59
+      KODE = 1  NTRIAL =   2  T = 361.1329  P =  124062.      V = 0.697263      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.59
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    4     0.80428    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.59
+      ITER  18 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      NO. TEMP ITER =    4     TEMP =  358.524    
+      KODE = 1  NTRIAL =   2  T = 358.5244  P =  124062.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER01 ITER   18:   1 VARS NOT CONVERGED, MAX ERR/TOL     -1.7915        TIME =      0.59
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.59
+      KODE = 1  NTRIAL =   1  T = 361.1310  P =  124062.      V = 0.697282      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.59
+      KODE = 1  NTRIAL =   1  T = 361.1310  P =  124062.      V = 0.697282      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.59
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    4     0.91617    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.60
+      ITER  19 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      NO. TEMP ITER =    4     TEMP =  358.050    
+      KODE = 1  NTRIAL =   2  T = 358.0501  P =  124062.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER01 ITER   19:   2 VARS NOT CONVERGED, MAX ERR/TOL     -1.6909        TIME =      0.60
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.60
+      KODE = 1  NTRIAL =   3  T = 361.1147  P =  124062.      V = 0.696335      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.60
+      KODE = 1  NTRIAL =   3  T = 361.1147  P =  124062.      V = 0.696335      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.60
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    4     0.63133    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.60
+      ITER  20 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      KODE = 1  NTRIAL =   4  T = 358.5374  P =  124062.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER01 ITER   20:   4 VARS NOT CONVERGED, MAX ERR/TOL     -4.9552        TIME =      0.60
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.60
+      KODE = 1  NTRIAL =   3  T = 361.1229  P =  124062.      V = 0.697801      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.60
+      KODE = 1  NTRIAL =   3  T = 361.1229  P =  124062.      V = 0.697801      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.60
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    4     0.40232    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.60
+      ITER  21 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      KODE = 1  NTRIAL =   4  T = 358.5396  P =  124062.      V = 9.829860E-07  Q =  0.00000    
+
+  LOOP $OLVER01 ITER   21:   3 VARS NOT CONVERGED, MAX ERR/TOL      11.917        TIME =      0.60
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.61
+      KODE = 1  NTRIAL =   2  T = 361.1267  P =  124062.      V = 0.697325      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.61
+      KODE = 1  NTRIAL =   2  T = 361.1267  P =  124062.      V = 0.697325      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.61
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    4     0.42367    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.61
+      ITER  22 For Tear Streams: C5-B
+
+      --FLASH TEAR STREAM C5-B    
+      NO. TEMP ITER =    4     TEMP =  358.522    
+      KODE = 1  NTRIAL =   1  T = 358.5217  P =  124062.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER01 ITER   22:   1 VARS NOT CONVERGED, MAX ERR/TOL     -1.1742        TIME =      0.61
+
+      UOS BLOCK C5-RE    MODEL: HEATER                                            TIME =      0.61
+      KODE = 1  NTRIAL =   1  T = 361.1277  P =  124062.      V = 0.697277      Q =  0.00000    
+
+      UOS BLOCK C5-FLASH MODEL: FLASH2                                            TIME =      0.61
+      KODE = 1  NTRIAL =   1  T = 361.1277  P =  124062.      V = 0.697277      Q =  0.00000    
+
+      UOS BLOCK C5       MODEL: RADFRAC                                           TIME =      0.61
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    4     0.57843    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =      0.61
+      ITER  23 For Tear Streams: C5-B
+
+  LOOP $OLVER01 ITER   23:     *** CONVERGED *** , MAX ERR/TOL    -0.88857        TIME =      0.61
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =      0.62
+      ITER   0 For Tear Streams: REFLUX4
+
+      ENTHALPY CALCULATION FOR INLET STREAM F4 OF BLOCK C4                        TIME =      0.62
+      KODE = 2  NTRIAL =   2  T = 298.1500  P =  202650.      V =  0.00000      Q =  0.00000    
+
+      UOS BLOCK C4       MODEL: RADFRAC                                           TIME =      0.62
+
+  *** SEVERE ERROR WHILE EXECUTING UNIT OPERATIONS BLOCK: "C4" (MODEL:          
+      "RADFRAC")                                               (UDL03A.7640)    
+      A LIQUID FEED/PUMPAROUND TO THE TOP STAGE IS REQUIRED WHEN                
+      "Q1=0" IS SPECIFIED IN "COL-SPECS"; REQUIRED FEED/PUMPAROUND              
+      HAS ZERO FLOW.                                                            
+
+  *   WARNING WHILE EXECUTING UNIT OPERATIONS BLOCK: "C4" (MODEL: "RADFRAC")    
+                                                               (UDL3II.7200)    
+      REST OF BLOCK BYPASSED DUE TO SEVERE ERROR.                               
+
+      UOS BLOCK C4-CON   MODEL: HEATER                                            TIME =      0.62
+      KODE = 3  NTRIAL =   4  T = 355.6420  P =  113038.      V =  0.00000      Q =-1.100933E+06
+
+      UOS BLOCK C4-SPLIT MODEL: FSPLIT                                            TIME =      0.62
+      SPLIT FRACTIONS:  0.48949D+00    0.51051D+00
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =      0.62
+      ITER   1 For Tear Streams: REFLUX4
+
+      --FLASH TEAR STREAM REFLUX4 
+      KODE = 1  NTRIAL =   4  T = 355.6420  P =  113038.      V = 3.308743E-08  Q =  0.00000    
+
+  LOOP $OLVER02 ITER    1:   3 VARS NOT CONVERGED, MAX ERR/TOL     0.10000E+07    TIME =      0.62
+
+      UOS BLOCK C4       MODEL: RADFRAC                                           TIME =      0.62
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    6      1632.5    
+          2    1    5      628.61    
+          3    1    5      444.30    
+          4    1    4      152.11    
+          5    1    4      94.452    
+          6    1    3      10.273    
+          7    1    3      4.5581    
+          8    1    3      3.0500    
+          9    1    3      4.2759    
+         10    1    3      5.0757    
+         11    1    3      6.6247    
+         12    1    3      5.0133    
+         13    1    3      2.7517    
+         14    1    3      1.3902    
+         15    1    3      1.2430    
+         16    1    3     0.33302    
+
+      UOS BLOCK C4-CON   MODEL: HEATER                                            TIME =      0.63
+      KODE = 3  NTRIAL =   3  T = 351.9345  P =  101325.      V =  0.00000      Q =-1.105827E+06
+
+      UOS BLOCK C4-SPLIT MODEL: FSPLIT                                            TIME =      0.63
+      SPLIT FRACTIONS:  0.49718D+00    0.50282D+00
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =      0.63
+      ITER   2 For Tear Streams: REFLUX4
+
+      --FLASH TEAR STREAM REFLUX4 
+      NO. TEMP ITER =    5     TEMP =  300.338    
+      KODE = 1  NTRIAL =   2  T = 300.3378  P =  101325.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER02 ITER    2:   5 VARS NOT CONVERGED, MAX ERR/TOL      3416.0        TIME =      0.63
+
+      UOS BLOCK C4       MODEL: RADFRAC                                           TIME =      0.63
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    7      207.13    
+          2    1    3      193.25    
+          3    1    3      116.16    
+          4    1    3      107.84    
+          5    1    3      64.963    
+          6    1    3      40.738    
+          7    1    3      17.757    
+          8    1    2      4.6140    
+          9    1    3      3.3630    
+         10    1    2     0.63271    
+
+      UOS BLOCK C4-CON   MODEL: HEATER                                            TIME =      0.64
+      KODE = 3  NTRIAL =   3  T = 351.5616  P =  101325.      V =  0.00000      Q =-1.010373E+06
+
+      UOS BLOCK C4-SPLIT MODEL: FSPLIT                                            TIME =      0.64
+      SPLIT FRACTIONS:  0.45341D+00    0.54659D+00
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =      0.64
+      ITER   3 For Tear Streams: REFLUX4
+
+      --FLASH TEAR STREAM REFLUX4 
+      KODE = 1  NTRIAL =   4  T = 351.4667  P =  101325.      V = 0.286502      Q =  0.00000    
+
+  LOOP $OLVER02 ITER    3:   4 VARS NOT CONVERGED, MAX ERR/TOL     -3808.4        TIME =      0.64
+
+      UOS BLOCK C4       MODEL: RADFRAC                                           TIME =      0.64
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    7      1502.1    
+          2    1    4      569.18    
+          3    1    3      268.26    
+          4    1    3      127.50    
+          5    1    3      82.976    
+          6    1    3      49.319    
+          7    1    3      25.910    
+          8    1    4      19.294    
+          9    1    3      17.187    
+         10    1    3      12.546    
+         11    1    3      7.2571    
+         12    1    3      3.9422    
+         13    1    3      2.4174    
+         14    1    3      1.8113    
+         15    1    3      1.2766    
+         16    1    3     0.74133    
+
+      UOS BLOCK C4-CON   MODEL: HEATER                                            TIME =      0.65
+      KODE = 3  NTRIAL =   2  T = 351.6066  P =  101325.      V =  0.00000      Q =-1.217363E+06
+
+      UOS BLOCK C4-SPLIT MODEL: FSPLIT                                            TIME =      0.65
+      SPLIT FRACTIONS:  0.54594D+00    0.45406D+00
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =      0.65
+      ITER   4 For Tear Streams: REFLUX4
+
+      --FLASH TEAR STREAM REFLUX4 
+      KODE = 1  NTRIAL =   2  T = 351.6066  P =  101325.      V = 1.569976E-09  Q =  0.00000    
+
+  LOOP $OLVER02 ITER    4:   4 VARS NOT CONVERGED, MAX ERR/TOL      8865.4        TIME =      0.65
+
+      UOS BLOCK C4       MODEL: RADFRAC                                           TIME =      0.67
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      1692.5    
+          2    1    3      1131.3    
+          3    1    4      360.39    
+          4    1    3      184.87    
+          5    1    3      119.95    
+          6    1    3      86.119    
+          7    1    3      47.827    
+          8    1    3      36.434    
+          9    1    3      18.190    
+         10    1    3      21.766    
+         11    1    2      4.0617    
+         12    1    2     0.74682    
+
+      UOS BLOCK C4-CON   MODEL: HEATER                                            TIME =      0.67
+      KODE = 3  NTRIAL =   2  T = 351.4934  P =  101325.      V =  0.00000      Q =-1.101003E+06
+
+      UOS BLOCK C4-SPLIT MODEL: FSPLIT                                            TIME =      0.67
+      SPLIT FRACTIONS:  0.49914D+00    0.50086D+00
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =      0.67
+      ITER   5 For Tear Streams: REFLUX4
+
+      --FLASH TEAR STREAM REFLUX4 
+      KODE = 1  NTRIAL =   2  T = 351.4934  P =  101325.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER02 ITER    5:   4 VARS NOT CONVERGED, MAX ERR/TOL     -2791.5        TIME =      0.67
+
+      UOS BLOCK C4       MODEL: RADFRAC                                           TIME =      0.67
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    7      105.91    
+          2    1    3      78.717    
+          3    1    2      21.227    
+          4    1    3      15.279    
+          5    1    3      13.003    
+          6    1    3      9.3016    
+          7    1    3      7.9684    
+          8    1    3      5.3934    
+          9    1    3      3.6050    
+         10    1    3      1.4220    
+         11    1    2     0.37128    
+
+      UOS BLOCK C4-CON   MODEL: HEATER                                            TIME =      0.69
+      KODE = 3  NTRIAL =   2  T = 351.4695  P =  101325.      V =  0.00000      Q =-1.102096E+06
+
+      UOS BLOCK C4-SPLIT MODEL: FSPLIT                                            TIME =      0.69
+      SPLIT FRACTIONS:  0.49991D+00    0.50009D+00
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =      0.69
+      ITER   6 For Tear Streams: REFLUX4
+
+      --FLASH TEAR STREAM REFLUX4 
+      KODE = 1  NTRIAL =   3  T = 351.4687  P =  101325.      V = 1.033058E-02  Q =  0.00000    
+
+  LOOP $OLVER02 ITER    6:   4 VARS NOT CONVERGED, MAX ERR/TOL     -333.18        TIME =      0.69
+
+      UOS BLOCK C4       MODEL: RADFRAC                                           TIME =      0.69
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      7.0671    
+          2    1    3      5.1163    
+          3    1    2      1.4136    
+          4    1    3     0.97608    
+
+      UOS BLOCK C4-CON   MODEL: HEATER                                            TIME =      0.69
+      KODE = 3  NTRIAL =   2  T = 351.4593  P =  101325.      V =  0.00000      Q =-1.107785E+06
+
+      UOS BLOCK C4-SPLIT MODEL: FSPLIT                                            TIME =      0.69
+      SPLIT FRACTIONS:  0.50260D+00    0.49740D+00
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =      0.69
+      ITER   7 For Tear Streams: REFLUX4
+
+      --FLASH TEAR STREAM REFLUX4 
+      KODE = 1  NTRIAL =   2  T = 351.4592  P =  101325.      V = 2.487268E-03  Q =  0.00000    
+
+  LOOP $OLVER02 ITER    7:   4 VARS NOT CONVERGED, MAX ERR/TOL      156.44        TIME =      0.69
+
+      UOS BLOCK C4       MODEL: RADFRAC                                           TIME =      0.70
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    6      14.207    
+          2    1    3      10.823    
+          3    1    2      3.1366    
+          4    1    3      2.5100    
+          5    1    3      1.9126    
+          6    1    3     0.85123    
+
+      UOS BLOCK C4-CON   MODEL: HEATER                                            TIME =      0.70
+      KODE = 3  NTRIAL =   2  T = 351.4517  P =  101325.      V =  0.00000      Q =-1.103464E+06
+
+      UOS BLOCK C4-SPLIT MODEL: FSPLIT                                            TIME =      0.70
+      SPLIT FRACTIONS:  0.50075D+00    0.49925D+00
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =      0.70
+      ITER   8 For Tear Streams: REFLUX4
+
+      --FLASH TEAR STREAM REFLUX4 
+      KODE = 1  NTRIAL =   2  T = 351.4517  P =  101325.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER02 ITER    8:   4 VARS NOT CONVERGED, MAX ERR/TOL     -199.69        TIME =      0.70
+
+      UOS BLOCK C4       MODEL: RADFRAC                                           TIME =      0.70
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      3.5852    
+          2    1    3      2.8793    
+          3    1    3     0.88937    
+
+      UOS BLOCK C4-CON   MODEL: HEATER                                            TIME =      0.72
+      KODE = 3  NTRIAL =   2  T = 351.4490  P =  101325.      V =  0.00000      Q =-1.102072E+06
+
+      UOS BLOCK C4-SPLIT MODEL: FSPLIT                                            TIME =      0.72
+      SPLIT FRACTIONS:  0.50015D+00    0.49985D+00
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =      0.72
+      ITER   9 For Tear Streams: REFLUX4
+
+      --FLASH TEAR STREAM REFLUX4 
+      KODE = 1  NTRIAL =   3  T = 351.4476  P =  101325.      V = 1.186159E-03  Q =  0.00000    
+
+  LOOP $OLVER02 ITER    9:   4 VARS NOT CONVERGED, MAX ERR/TOL     -70.995        TIME =      0.72
+
+      UOS BLOCK C4       MODEL: RADFRAC                                           TIME =      0.72
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      2.8872    
+          2    1    3      2.0799    
+          3    1    3     0.59491    
+
+      UOS BLOCK C4-CON   MODEL: HEATER                                            TIME =      0.72
+      KODE = 3  NTRIAL =   2  T = 351.4478  P =  101325.      V =  0.00000      Q =-1.102740E+06
+
+      UOS BLOCK C4-SPLIT MODEL: FSPLIT                                            TIME =      0.72
+      SPLIT FRACTIONS:  0.50047D+00    0.49953D+00
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =      0.72
+      ITER  10 For Tear Streams: REFLUX4
+
+      --FLASH TEAR STREAM REFLUX4 
+      NO. TEMP ITER =    4     TEMP =  351.341    
+      KODE = 1  NTRIAL =   2  T = 351.3405  P =  101325.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER02 ITER   10:   4 VARS NOT CONVERGED, MAX ERR/TOL      29.381        TIME =      0.72
+
+      UOS BLOCK C4       MODEL: RADFRAC                                           TIME =      0.72
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      3.9191    
+          2    1    3      3.0035    
+          3    1    2     0.77322    
+
+      UOS BLOCK C4-CON   MODEL: HEATER                                            TIME =      0.73
+      KODE = 3  NTRIAL =   2  T = 351.4471  P =  101325.      V =  0.00000      Q =-1.101892E+06
+
+      UOS BLOCK C4-SPLIT MODEL: FSPLIT                                            TIME =      0.73
+      SPLIT FRACTIONS:  0.50009D+00    0.49991D+00
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =      0.73
+      ITER  11 For Tear Streams: REFLUX4
+
+      --FLASH TEAR STREAM REFLUX4 
+      NO. TEMP ITER =    1     TEMP =  351.447    
+      KODE = 1  NTRIAL =   1  T = 351.4470  P =  101325.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER02 ITER   11:   4 VARS NOT CONVERGED, MAX ERR/TOL     -30.181        TIME =      0.73
+
+      UOS BLOCK C4       MODEL: RADFRAC                                           TIME =      0.73
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      2.5409    
+          2    1    3      1.7817    
+          3    1    2     0.47990    
+
+      UOS BLOCK C4-CON   MODEL: HEATER                                            TIME =      0.73
+      KODE = 3  NTRIAL =   1  T = 351.4473  P =  101325.      V =  0.00000      Q =-1.102089E+06
+
+      UOS BLOCK C4-SPLIT MODEL: FSPLIT                                            TIME =      0.79
+      SPLIT FRACTIONS:  0.50018D+00    0.49982D+00
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =      0.79
+      ITER  12 For Tear Streams: REFLUX4
+
+      --FLASH TEAR STREAM REFLUX4 
+      NO. TEMP ITER =    1     TEMP =  351.447    
+      KODE = 1  NTRIAL =   1  T = 351.4472  P =  101325.      V =  0.00000      Q =  0.00000    
+
+  LOOP $OLVER02 ITER   12:   3 VARS NOT CONVERGED, MAX ERR/TOL      6.8486        TIME =      0.79
+
+      UOS BLOCK C4       MODEL: RADFRAC                                           TIME =      0.79
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    4     0.98605    
+
+      UOS BLOCK C4-CON   MODEL: HEATER                                            TIME =      0.79
+      KODE = 3  NTRIAL =   1  T = 351.4473  P =  101325.      V =  0.00000      Q =-1.102093E+06
+
+      UOS BLOCK C4-SPLIT MODEL: FSPLIT                                            TIME =      0.79
+      SPLIT FRACTIONS:  0.50018D+00    0.49982D+00
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =      0.79
+      ITER  13 For Tear Streams: REFLUX4
+
+  LOOP $OLVER02 ITER   13:     *** CONVERGED *** , MAX ERR/TOL     0.17845        TIME =      0.79
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =      0.79
+      ITER   0 For Tear Streams: RE3-VAP
+
+      ENTHALPY CALCULATION FOR INLET STREAM F3 OF BLOCK C3                        TIME =      0.79
+      KODE = 2  NTRIAL =   2  T = 298.1500  P =  202650.      V =  0.00000      Q =  0.00000    
+
+      UOS BLOCK C3       MODEL: RADFRAC                                           TIME =      0.79
+
+  *** SEVERE ERROR WHILE EXECUTING UNIT OPERATIONS BLOCK: "C3" (MODEL:          
+      "RADFRAC")                                               (UDL03A.7660)    
+      A VAPOR FEED/PUMPAROUND TO THE BOTTOM STAGE IS REQUIRED WHEN              
+      "QN=0" IS SPECIFIED IN "COL-SPECS"; REQUIRED FEED/PUMPAROUND              
+      HAS ZERO FLOW.                                                            
+
+  *   WARNING WHILE EXECUTING UNIT OPERATIONS BLOCK: "C3" (MODEL: "RADFRAC")    
+                                                               (UDL3II.7200)    
+      REST OF BLOCK BYPASSED DUE TO SEVERE ERROR.                               
+
+      UOS BLOCK C3-RE    MODEL: FLASH2                                            TIME =      0.79
+      NO. TEMP ITER =    6     TEMP =  966.370    
+      KODE = 1  NTRIAL =   5  T = 966.3700  P =  124062.      V =  1.00000      Q =  0.00000    
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =      0.79
+      ITER   1 For Tear Streams: RE3-VAP
+
+      --FLASH TEAR STREAM RE3-VAP 
+      NO. TEMP ITER =    5     TEMP =  963.017    
+      NO. TEMP ITER =    5     TEMP =  963.017    
+      NO. TEMP ITER =    5     TEMP =  963.017    
+      NO. TEMP ITER =    6     TEMP =  966.370    
+      KODE = 1  NTRIAL =   5  T = 966.3700  P =  124062.      V =  1.00000      Q =  0.00000    
+
+  LOOP $OLVER03 ITER    1:   3 VARS NOT CONVERGED, MAX ERR/TOL     0.10000E+07    TIME =      0.79
+
+      UOS BLOCK C3       MODEL: RADFRAC                                           TIME =      0.80
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    3      289.78    
+          2    1    3      178.29    
+          3    1    3      62.576    
+          4    1    3      24.644    
+          5    1    3      14.629    
+          6    1    3      16.881    
+          7    1    3      14.429    
+          8    1    3      5.1553    
+          9    1    3      3.0573    
+         10    1    3      2.4768    
+         11    1    3      1.3403    
+         12    1    2     0.22094    
+
+      UOS BLOCK C3-RE    MODEL: FLASH2                                            TIME =      0.85
+      NO. TEMP ITER =    5     TEMP =  434.335    
+      KODE = 1  NTRIAL =   5  T = 434.3348  P =  124062.      V =  1.00000      Q =  0.00000    
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =      0.85
+      ITER   2 For Tear Streams: RE3-VAP
+
+      --FLASH TEAR STREAM RE3-VAP 
+      KODE = 1  NTRIAL =   6  T = 360.0060  P =  124062.      V = 0.591294      Q =  0.00000    
+
+  LOOP $OLVER03 ITER    2:   4 VARS NOT CONVERGED, MAX ERR/TOL      16044.        TIME =      0.85
+
+      UOS BLOCK C3       MODEL: RADFRAC                                           TIME =      0.85
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      35.672    
+          2    1    3      13.171    
+          3    1    2      2.4211    
+          4    1    2      1.1074    
+          5    1    2     0.51259    
+
+      UOS BLOCK C3-RE    MODEL: FLASH2                                            TIME =      0.86
+      KODE = 1  NTRIAL =   6  T = 360.5737  P =  124062.      V = 0.596834      Q =  0.00000    
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =      0.86
+      ITER   3 For Tear Streams: RE3-VAP
+
+      --FLASH TEAR STREAM RE3-VAP 
+      KODE = 1  NTRIAL =   4  T = 357.1382  P =  124062.      V = 0.361132      Q =  0.00000    
+
+  LOOP $OLVER03 ITER    3:   4 VARS NOT CONVERGED, MAX ERR/TOL     -2241.9        TIME =      0.86
+
+      UOS BLOCK C3       MODEL: RADFRAC                                           TIME =      0.86
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      50.094    
+          2    1    3      13.380    
+          3    1    2      2.4001    
+          4    1    2      1.0660    
+          5    1    2     0.66075    
+
+      UOS BLOCK C3-RE    MODEL: FLASH2                                            TIME =      0.87
+      KODE = 1  NTRIAL =   4  T = 357.8853  P =  124062.      V = 0.484906      Q =  0.00000    
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =      0.87
+      ITER   4 For Tear Streams: RE3-VAP
+
+      --FLASH TEAR STREAM RE3-VAP 
+      NO. TEMP ITER =    6     TEMP =  520.272    
+      KODE = 1  NTRIAL =   5  T = 520.2716  P =  124062.      V =  1.00000      Q =  0.00000    
+
+  LOOP $OLVER03 ITER    4:   4 VARS NOT CONVERGED, MAX ERR/TOL     -2924.8        TIME =      0.87
+
+      UOS BLOCK C3       MODEL: RADFRAC                                           TIME =      0.87
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    6      57.466    
+          2    1    3      41.224    
+          3    1    2      8.3061    
+          4    1    2      5.5831    
+          5    1    2      1.9829    
+          6    1    3      1.0810    
+          7    1    3     0.91788    
+
+      UOS BLOCK C3-RE    MODEL: FLASH2                                            TIME =      0.91
+      KODE = 1  NTRIAL =   6  T = 359.6002  P =  124062.      V = 0.821314      Q =  0.00000    
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =      0.91
+      ITER   5 For Tear Streams: RE3-VAP
+
+      --FLASH TEAR STREAM RE3-VAP 
+      KODE = 1  NTRIAL =   7  T = 359.5401  P =  124062.      V = 0.995545      Q =  0.00000    
+
+  LOOP $OLVER03 ITER    5:   4 VARS NOT CONVERGED, MAX ERR/TOL      8662.0        TIME =      0.91
+
+      UOS BLOCK C3       MODEL: RADFRAC                                           TIME =      0.91
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    6      70.424    
+          2    1    3      47.310    
+          3    1    3      9.8453    
+          4    1    2      5.4648    
+          5    1    2      1.4206    
+          6    1    3     0.72446    
+
+      UOS BLOCK C3-RE    MODEL: FLASH2                                            TIME =      0.92
+      KODE = 1  NTRIAL =   5  T = 360.2525  P =  124062.      V = 0.695317      Q =  0.00000    
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =      0.92
+      ITER   6 For Tear Streams: RE3-VAP
+
+      --FLASH TEAR STREAM RE3-VAP 
+      KODE = 1  NTRIAL =   5  T = 360.2232  P =  124062.      V = 0.992395      Q =  0.00000    
+
+  LOOP $OLVER03 ITER    6:   4 VARS NOT CONVERGED, MAX ERR/TOL      495.12        TIME =      0.92
+
+      UOS BLOCK C3       MODEL: RADFRAC                                           TIME =      0.92
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      18.940    
+          2    1    3      12.594    
+          3    1    3      2.5285    
+          4    1    3      1.4617    
+          5    1    2     0.40566    
+
+      UOS BLOCK C3-RE    MODEL: FLASH2                                            TIME =      0.93
+      KODE = 1  NTRIAL =   5  T = 360.6319  P =  124062.      V = 0.694681      Q =  0.00000    
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =      0.93
+      ITER   7 For Tear Streams: RE3-VAP
+
+      --FLASH TEAR STREAM RE3-VAP 
+      NO. TEMP ITER =    4     TEMP =  366.813    
+      KODE = 1  NTRIAL =   5  T = 366.8127  P =  124062.      V =  1.00000      Q =  0.00000    
+
+  LOOP $OLVER03 ITER    7:   4 VARS NOT CONVERGED, MAX ERR/TOL     -217.29        TIME =      0.93
+
+      UOS BLOCK C3       MODEL: RADFRAC                                           TIME =      0.93
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      19.724    
+          2    1    3      13.652    
+          3    1    3      2.7464    
+          4    1    3      1.6113    
+          5    1    2     0.40447    
+
+      UOS BLOCK C3-RE    MODEL: FLASH2                                            TIME =      0.96
+      KODE = 1  NTRIAL =   5  T = 361.0836  P =  124062.      V = 0.699932      Q =  0.00000    
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =      0.96
+      ITER   8 For Tear Streams: RE3-VAP
+
+      --FLASH TEAR STREAM RE3-VAP 
+      KODE = 1  NTRIAL =   7  T = 360.7857  P =  124062.      V = 0.944330      Q =  0.00000    
+
+  LOOP $OLVER03 ITER    8:   4 VARS NOT CONVERGED, MAX ERR/TOL      102.53        TIME =      0.97
+
+      UOS BLOCK C3       MODEL: RADFRAC                                           TIME =      0.97
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    4     0.79645    
+
+      UOS BLOCK C3-RE    MODEL: FLASH2                                            TIME =      0.97
+      KODE = 1  NTRIAL =   4  T = 360.9653  P =  124062.      V = 0.681040      Q =  0.00000    
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =      0.97
+      ITER   9 For Tear Streams: RE3-VAP
+
+      --FLASH TEAR STREAM RE3-VAP 
+      KODE = 1  NTRIAL =   5  T = 360.9653  P =  124062.      V =  1.00000      Q =  0.00000    
+
+  LOOP $OLVER03 ITER    9:   4 VARS NOT CONVERGED, MAX ERR/TOL     -384.36        TIME =      0.97
+
+      UOS BLOCK C3       MODEL: RADFRAC                                           TIME =      0.97
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      1.3698    
+          2    1    3     0.86852    
+
+      UOS BLOCK C3-RE    MODEL: FLASH2                                            TIME =      0.97
+      KODE = 1  NTRIAL =   4  T = 361.0379  P =  124062.      V = 0.697315      Q =  0.00000    
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =      0.97
+      ITER  10 For Tear Streams: RE3-VAP
+
+      --FLASH TEAR STREAM RE3-VAP 
+      KODE = 1  NTRIAL =   7  T = 361.0379  P =  124062.      V =  1.00000      Q =  0.00000    
+
+  LOOP $OLVER03 ITER   10:   4 VARS NOT CONVERGED, MAX ERR/TOL      44.016        TIME =      0.97
+
+      UOS BLOCK C3       MODEL: RADFRAC                                           TIME =      0.98
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      2.4999    
+          2    1    3      1.5364    
+          3    1    3     0.31553    
+
+      UOS BLOCK C3-RE    MODEL: FLASH2                                            TIME =      0.98
+      KODE = 1  NTRIAL =   4  T = 361.0787  P =  124062.      V = 0.697313      Q =  0.00000    
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =      0.98
+      ITER  11 For Tear Streams: RE3-VAP
+
+      --FLASH TEAR STREAM RE3-VAP 
+      KODE = 1  NTRIAL =   5  T = 361.1307  P =  124062.      V = 0.999976      Q =  0.00000    
+
+  LOOP $OLVER03 ITER   11:   4 VARS NOT CONVERGED, MAX ERR/TOL      24.217        TIME =      0.98
+
+      UOS BLOCK C3       MODEL: RADFRAC                                           TIME =      0.98
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      2.1426    
+          2    1    3      1.5407    
+          3    1    3     0.33914    
+
+      UOS BLOCK C3-RE    MODEL: FLASH2                                            TIME =      1.03
+      KODE = 1  NTRIAL =   4  T = 361.1307  P =  124062.      V = 0.697347      Q =  0.00000    
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =      1.03
+      ITER  12 For Tear Streams: RE3-VAP
+
+      --FLASH TEAR STREAM RE3-VAP 
+      NO. TEMP ITER =    4     TEMP =  361.161    
+      KODE = 1  NTRIAL =   1  T = 361.1608  P =  124062.      V =  1.00000      Q =  0.00000    
+
+  LOOP $OLVER03 ITER   12:   1 VARS NOT CONVERGED, MAX ERR/TOL      1.1004        TIME =      1.03
+
+      UOS BLOCK C3       MODEL: RADFRAC                                           TIME =      1.03
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    4     0.44085    
+
+      UOS BLOCK C3-RE    MODEL: FLASH2                                            TIME =      1.03
+      KODE = 1  NTRIAL =   1  T = 361.1304  P =  124062.      V = 0.697313      Q =  0.00000    
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =      1.03
+      ITER  13 For Tear Streams: RE3-VAP
+
+      --FLASH TEAR STREAM RE3-VAP 
+      KODE = 1  NTRIAL =   7  T = 361.1304  P =  124062.      V = 0.999994      Q =  0.00000    
+
+  LOOP $OLVER03 ITER   13:   3 VARS NOT CONVERGED, MAX ERR/TOL     -1.1861        TIME =      1.03
+
+      UOS BLOCK C3       MODEL: RADFRAC                                           TIME =      1.03
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    4     0.33025    
+
+      UOS BLOCK C3-RE    MODEL: FLASH2                                            TIME =      1.04
+      KODE = 1  NTRIAL =   1  T = 361.1298  P =  124062.      V = 0.697332      Q =  0.00000    
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =      1.04
+      ITER  14 For Tear Streams: RE3-VAP
+
+  LOOP $OLVER03 ITER   14:     *** CONVERGED *** , MAX ERR/TOL     0.42219        TIME =      1.04
+
+      ENTHALPY CALCULATION FOR INLET STREAM F2 OF BLOCK C2-SIZE                   TIME =      1.04
+      KODE = 2  NTRIAL =   2  T = 298.1500  P =  202650.      V =  0.00000      Q =  0.00000    
+
+      UOS BLOCK C2-SIZE  MODEL: RADFRAC                                           TIME =      1.04
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      1593.1    
+          2    1    5      647.71    
+          3    1    4      450.58    
+          4    1    3      140.72    
+          5    1    4      83.718    
+          6    1    3      16.514    
+          7    1    3      11.481    
+          8    1    3      8.6917    
+          9    1    3      6.8251    
+         10    1    3      4.8628    
+         11    1    3      4.4824    
+         12    1    3      1.3121    
+         13    1    3     0.81825    
+
+      ENTHALPY CALCULATION FOR INLET STREAM F1 OF BLOCK C1                        TIME =      1.13
+      KODE = 2  NTRIAL =   2  T = 298.1500  P =  202650.      V =  0.00000      Q =  0.00000    
+
+      UOS BLOCK C1       MODEL: RADFRAC                                           TIME =      1.13
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    5      1593.1    
+          2    1    5      647.71    
+          3    1    4      450.58    
+          4    1    3      140.72    
+          5    1    4      83.718    
+          6    1    3      16.514    
+          7    1    3      11.481    
+          8    1    3      8.6917    
+          9    1    3      6.8251    
+         10    1    3      4.8628    
+         11    1    3      4.4824    
+         12    1    3      1.3121    
+         13    1    3     0.81825    
+
+      GENERATING RESULTS FOR UOS BLOCK C4-CON   MODEL: HEATER                     TIME =      1.14
+
+      GENERATING RESULTS FOR UOS BLOCK C5-RE    MODEL: HEATER                     TIME =      1.14
+
+      GENERATING RESULTS FOR UOS BLOCK COOLER   MODEL: HEATER                     TIME =      1.14
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ STREAM       FF       IS NEW 02/24/2019   13:50:20:60 
+ STREAM FF
+     SUBSTREAM MIXED TEMP=320. PRES=1. MOLE-FLOW=10.
+     MOLE-FRAC WATER 0.5 / ETHANOL 0.5
+
+ STREAM       SOL      IS NEW 02/24/2019   13:50:20:60 
+ STREAM SOL
+     SUBSTREAM MIXED TEMP=320. PRES=1. MOLE-FLOW=5.
+     MOLE-FRAC BENZENE 1.
+
+ BLOCK        EXTOWER  IS NEW 02/24/2019   13:50:20:60 
+ BLOCK EXTOWER EXTRACT
+     PARAM NSTAGE=3
+     FEEDS FF 1 / SOL 3
+     PRODUCTS EX 1 L2 / RAFF 3 L1
+     P-SPEC 1 1.
+     L1-COMPS WATER
+     L2-COMPS BENZENE
+     T-EST 1 320.
+
+ RENAME       IS  NEW 02/24/2019   13:50:20:60 
+ RENAME
+     STREAM "S1" "FF" / "S2" "SOL" / "S3" "EX" / "S4" "RAFF"
+
+ FLOWSHEET    IS  NEW 02/24/2019   13:50:20:60 
+ FLOWSHEET
+     BLOCK C1 IN=F1 OUT=D1 B1
+     BLOCK C2-SIZE IN=F2 OUT=D2 B2
+     BLOCK C3 IN=F3 RE3-VAP OUT=D3 C3-B
+     BLOCK C3-RE IN=C3-B OUT=RE3-VAP B3
+     BLOCK C4 IN=F4 REFLUX4 OUT=C4-V B4
+     BLOCK C4-CON IN=C4-V OUT=CON4-L
+     BLOCK C4-SPLIT IN=CON4-L OUT=REFLUX4 D4
+     BLOCK C5-FLASH IN=C5-REO OUT=RE5-VAP B5
+     BLOCK C5 IN=F5 RE5-VAP OUT=D5 C5-B
+     BLOCK C5-RE IN=C5-B OUT=C5-REO
+     BLOCK COOLER IN=CI OUT=CO
+     BLOCK EXTOWER IN=FF SOL OUT=EX RAFF
+
+ PDF updated                                                                      TIME =    156.77
+ THIS COPY OF ASPEN PLUS LICENSED TO NATIONAL TAIWAN UNIV            
+ *** FLOWSHEET ANALYSIS MESSAGES ***
+
+ FLOWSHEET CONNECTIVITY BY STREAMS       
+
+   STREAM     SOURCE     DEST           STREAM     SOURCE     DEST
+   SOL        ----       EXTOWER        FF         ----       EXTOWER 
+   F1         ----       C1             F2         ----       C2-SIZE 
+   F3         ----       C3             F4         ----       C4      
+   F5         ----       C5             CI         ----       COOLER  
+   D1         C1         ----           B1         C1         ----    
+   D2         C2-SIZE    ----           B2         C2-SIZE    ----    
+   D3         C3         ----           C3-B       C3         C3-RE   
+   RE3-VAP    C3-RE      C3             B3         C3-RE      ----    
+   C4-V       C4         C4-CON         B4         C4         ----    
+   CON4-L     C4-CON     C4-SPLIT       REFLUX4    C4-SPLIT   C4      
+   D4         C4-SPLIT   ----           RE5-VAP    C5-FLASH   C5      
+   B5         C5-FLASH   ----           D5         C5         ----    
+   C5-B       C5         C5-RE          C5-REO     C5-RE      C5-FLASH
+   CO         COOLER     ----           EX         EXTOWER    ----    
+   RAFF       EXTOWER    ----                                         
+
+ FLOWSHEET CONNECTIVITY BY BLOCKS        
+
+   BLOCK        INLETS                         OUTLETS
+   C1           F1                             D1 B1                       
+   C2-SIZE      F2                             D2 B2                       
+   C3           F3 RE3-VAP                     D3 C3-B                     
+   C3-RE        C3-B                           RE3-VAP B3                  
+   C4           F4 REFLUX4                     C4-V B4                     
+   C4-CON       C4-V                           CON4-L                      
+   C4-SPLIT     CON4-L                         REFLUX4 D4                  
+   C5-FLASH     C5-REO                         RE5-VAP B5                  
+   C5           F5 RE5-VAP                     D5 C5-B                     
+   C5-RE        C5-B                           C5-REO                      
+   COOLER       CI                             CO                          
+   EXTOWER      FF SOL                         EX RAFF                     
+
+      BLOCK $OLVER01 (METHOD: WEGSTEIN) HAS BEEN DEFINED TO CONVERGE
+               STREAMS: C5-B
+
+      BLOCK $OLVER02 (METHOD: WEGSTEIN) HAS BEEN DEFINED TO CONVERGE
+               STREAMS: REFLUX4
+
+      BLOCK $OLVER03 (METHOD: WEGSTEIN) HAS BEEN DEFINED TO CONVERGE
+               STREAMS: RE3-VAP
+
+      COMPUTATION ORDER FOR THE FLOWSHEET IS:
+      EXTOWER COOLER 
+      $OLVER01 C5-RE C5-FLASH C5 
+      (RETURN $OLVER01) 
+      $OLVER02 C4 C4-CON C4-SPLIT 
+      (RETURN $OLVER02) 
+      $OLVER03 C3 C3-RE 
+      (RETURN $OLVER03) 
+      C2-SIZE C1 
+
+
+Calculations begin                                                              time    156.80
+
+
+      ENTHALPY CALCULATION FOR INLET STREAM FF OF BLOCK EXTOWER                   TIME =    156.80
+      KODE = 2  NTRIAL =   2  T = 320.0000  P =  101325.      V =  0.00000      Q =  0.00000    
+
+      ENTHALPY CALCULATION FOR INLET STREAM SOL OF BLOCK EXTOWER                  TIME =    156.80
+      KODE = 2  NTRIAL =   1  T = 320.0000  P =  101325.      V =  0.00000      Q =  0.00000    
+
+      UOS BLOCK EXTOWER  MODEL: EXTRACT                                           TIME =    156.80
+
+      Convergence iterations:
+         OL   IL     Err/Tol
+          1    1      181.04    
+ 
+          2    2      12.768    
+ 
+          3    4      11.562    
+ 
+          4    3      7.9349    
+ 
+          5    2      4.5331    
+ 
+          6    2      2.7969    
+ 
+          7    3      1.2342    
+ 
+          8    3     0.41993    
+ 
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =    156.80
+      ITER   0 For Tear Streams: C5-B
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =    156.80
+      ITER   1 For Tear Streams: C5-B
+
+  LOOP $OLVER01 ITER    1:     *** CONVERGED *** , MAX ERR/TOL      0.0000        TIME =    156.80
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =    156.80
+      ITER   0 For Tear Streams: REFLUX4
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =    156.80
+      ITER   1 For Tear Streams: REFLUX4
+
+  LOOP $OLVER02 ITER    1:     *** CONVERGED *** , MAX ERR/TOL      0.0000        TIME =    156.80
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =    156.81
+      ITER   0 For Tear Streams: RE3-VAP
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =    156.81
+      ITER   1 For Tear Streams: RE3-VAP
+
+  LOOP $OLVER03 ITER    1:     *** CONVERGED *** , MAX ERR/TOL      0.0000        TIME =    156.81
+
+ Report Writer entered                                                            Time =    195.94
+
+ Results generated                                                                Time =    196.06
+
+ Report Writer entered                                                            Time =    197.29
+
+ Results generated                                                                Time =    197.40
+
+RUN SAVED
+
+
+
+ *** SUMMARY OF ERRORS ***
+
+                  PHYSICAL
+                  PROPERTY  SYSTEM  SIMULATION
+ TERMINAL ERRORS      0        0         0
+   SEVERE ERRORS      0        0         5
+          ERRORS      0        0         0
+        WARNINGS      0        0         6
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        EXTOWER  02/24/2019   13:52:57:56 
+ BLOCK EXTOWER EXTRACT
+     PARAM NSTAGE=3
+     FEEDS FF1 1 / SOL 3
+     PRODUCTS EX 1 L2 / RAFF 3 L1
+     P-SPEC 1 1.
+     L1-COMPS WATER
+     L2-COMPS BENZENE
+     T-EST 1 320.
+
+ CHANGES WERE MADE TO RENAME       02/24/2019   13:52:57:56 
+ RENAME
+     STREAM "S5" "OR" / "S6" "AQ" / "FF" "FF1" / "S7" "FF2"
+
+ STREAM       FF2      IS NEW 02/24/2019   13:52:57:56 
+ STREAM FF2
+     SUBSTREAM MIXED TEMP=320. PRES=1. MOLE-FLOW=15.
+     MOLE-FLOW WATER 0.4 / ETHANOL 0.4 / BENZENE 0.2
+
+ BLOCK        DEC      IS NEW 02/24/2019   13:52:57:56 
+ BLOCK DEC DECANTER
+     PARAM TEMP=320. PRES=1. L2-COMPS=BENZENE
+
+ FLOWSHEET    IS  NEW 02/24/2019   13:52:57:56 
+ FLOWSHEET
+     BLOCK C1 IN=F1 OUT=D1 B1
+     BLOCK C2-SIZE IN=F2 OUT=D2 B2
+     BLOCK C3 IN=F3 RE3-VAP OUT=D3 C3-B
+     BLOCK C3-RE IN=C3-B OUT=RE3-VAP B3
+     BLOCK C4 IN=F4 REFLUX4 OUT=C4-V B4
+     BLOCK C4-CON IN=C4-V OUT=CON4-L
+     BLOCK C4-SPLIT IN=CON4-L OUT=REFLUX4 D4
+     BLOCK C5-FLASH IN=C5-REO OUT=RE5-VAP B5
+     BLOCK C5 IN=F5 RE5-VAP OUT=D5 C5-B
+     BLOCK C5-RE IN=C5-B OUT=C5-REO
+     BLOCK COOLER IN=CI OUT=CO
+     BLOCK EXTOWER IN=FF1 SOL OUT=EX RAFF
+     BLOCK DEC IN=FF2 OUT=AQ OR
+
+ PDF updated                                                                      TIME =    313.74
+ THIS COPY OF ASPEN PLUS LICENSED TO NATIONAL TAIWAN UNIV            
+
+  *   WARNING IN A "STREAM" PARAGRAPH                                           
+      STREAM NAME: FF2                                         (STSTRM.29)      
+      COMPONENT MOLE FLOWS OF SUBSTREAM: "MIXED"                                
+      ARE NORMALIZED TO THE TOTAL MOLE FLOW VALUE.                              
+ *** FLOWSHEET ANALYSIS MESSAGES ***
+
+ FLOWSHEET CONNECTIVITY BY STREAMS       
+
+   STREAM     SOURCE     DEST           STREAM     SOURCE     DEST
+   FF2        ----       DEC            SOL        ----       EXTOWER 
+   FF1        ----       EXTOWER        F1         ----       C1      
+   F2         ----       C2-SIZE        F3         ----       C3      
+   F4         ----       C4             F5         ----       C5      
+   CI         ----       COOLER         D1         C1         ----    
+   B1         C1         ----           D2         C2-SIZE    ----    
+   B2         C2-SIZE    ----           D3         C3         ----    
+   C3-B       C3         C3-RE          RE3-VAP    C3-RE      C3      
+   B3         C3-RE      ----           C4-V       C4         C4-CON  
+   B4         C4         ----           CON4-L     C4-CON     C4-SPLIT
+   REFLUX4    C4-SPLIT   C4             D4         C4-SPLIT   ----    
+   RE5-VAP    C5-FLASH   C5             B5         C5-FLASH   ----    
+   D5         C5         ----           C5-B       C5         C5-RE   
+   C5-REO     C5-RE      C5-FLASH       CO         COOLER     ----    
+   EX         EXTOWER    ----           RAFF       EXTOWER    ----    
+   AQ         DEC        ----           OR         DEC        ----    
+
+ FLOWSHEET CONNECTIVITY BY BLOCKS        
+
+   BLOCK        INLETS                         OUTLETS
+   C1           F1                             D1 B1                       
+   C2-SIZE      F2                             D2 B2                       
+   C3           F3 RE3-VAP                     D3 C3-B                     
+   C3-RE        C3-B                           RE3-VAP B3                  
+   C4           F4 REFLUX4                     C4-V B4                     
+   C4-CON       C4-V                           CON4-L                      
+   C4-SPLIT     CON4-L                         REFLUX4 D4                  
+   C5-FLASH     C5-REO                         RE5-VAP B5                  
+   C5           F5 RE5-VAP                     D5 C5-B                     
+   C5-RE        C5-B                           C5-REO                      
+   COOLER       CI                             CO                          
+   EXTOWER      FF1 SOL                        EX RAFF                     
+   DEC          FF2                            AQ OR                       
+
+      BLOCK $OLVER01 (METHOD: WEGSTEIN) HAS BEEN DEFINED TO CONVERGE
+               STREAMS: C5-B
+
+      BLOCK $OLVER02 (METHOD: WEGSTEIN) HAS BEEN DEFINED TO CONVERGE
+               STREAMS: REFLUX4
+
+      BLOCK $OLVER03 (METHOD: WEGSTEIN) HAS BEEN DEFINED TO CONVERGE
+               STREAMS: RE3-VAP
+
+      COMPUTATION ORDER FOR THE FLOWSHEET IS:
+      DEC EXTOWER COOLER 
+      $OLVER01 C5-RE C5-FLASH C5 
+      (RETURN $OLVER01) 
+      $OLVER02 C4 C4-CON C4-SPLIT 
+      (RETURN $OLVER02) 
+      $OLVER03 C3 C3-RE 
+      (RETURN $OLVER03) 
+      C2-SIZE C1 
+
+
+Calculations begin                                                              time    313.82
+
+
+      ENTHALPY CALCULATION FOR INLET STREAM FF2 OF BLOCK DEC                      TIME =    313.82
+      KODE = 2  NTRIAL =   2  T = 320.0000  P =  101325.      V =  0.00000      Q =  0.00000    
+
+      UOS BLOCK DEC      MODEL: DECANTER                                          TIME =    313.82
+      T =   320.00        P =  0.10132E+06  B =  0.81820      Q =  -1684.9    
+
+      UOS BLOCK EXTOWER  MODEL: EXTRACT                                           TIME =    313.82
+
+      Convergence iterations:
+         OL   IL     Err/Tol
+          1    3     0.82791    
+ 
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =    313.82
+      ITER   0 For Tear Streams: C5-B
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =    313.82
+      ITER   1 For Tear Streams: C5-B
+
+  LOOP $OLVER01 ITER    1:     *** CONVERGED *** , MAX ERR/TOL      0.0000        TIME =    313.82
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =    313.82
+      ITER   0 For Tear Streams: REFLUX4
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =    313.82
+      ITER   1 For Tear Streams: REFLUX4
+
+  LOOP $OLVER02 ITER    1:     *** CONVERGED *** , MAX ERR/TOL      0.0000        TIME =    313.82
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =    313.83
+      ITER   0 For Tear Streams: RE3-VAP
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =    313.83
+      ITER   1 For Tear Streams: RE3-VAP
+
+  LOOP $OLVER03 ITER    1:     *** CONVERGED *** , MAX ERR/TOL      0.0000        TIME =    313.83
+
+ Report Writer entered                                                            Time =    317.84
+
+ Results generated                                                                Time =    317.98
+
+ Report Writer entered                                                            Time =    319.37
+
+ Results generated                                                                Time =    319.48
+
+RUN SAVED
+
+
+
+ *** SUMMARY OF ERRORS ***
+
+                  PHYSICAL
+                  PROPERTY  SYSTEM  SIMULATION
+ TERMINAL ERRORS      0        0         0
+   SEVERE ERRORS      0        0         5
+          ERRORS      0        0         0
+        WARNINGS      0        0         7
+
+ Report Writer entered                                                            Time =    337.90
+
+ Results generated                                                                Time =    338.02
+
+ Report Writer entered                                                            Time =    339.42
+
+ Results generated                                                                Time =    339.54
+
+RUN SAVED
+
+
+
+ *** SUMMARY OF ERRORS ***
+
+                  PHYSICAL
+                  PROPERTY  SYSTEM  SIMULATION
+ TERMINAL ERRORS      0        0         0
+   SEVERE ERRORS      0        0         5
+          ERRORS      0        0         0
+        WARNINGS      0        0         7
+
+ *** CALCULATION TRACE ***
+
+
+<set objective = None>
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        EXTOWER  02/24/2019   13:55:18:97 
+ ;  "Density, viscosity, and surface tension"
+ 
+ 
+ BLOCK EXTOWER EXTRACT
+     PARAM NSTAGE=3
+     FEEDS FF1 1 / SOL 3
+     PRODUCTS EX 1 L2 / RAFF 3 L1
+     P-SPEC 1 1.
+     L1-COMPS WATER
+     L2-COMPS BENZENE
+     T-EST 1 320.
+     TRAY-REPORT PROPERTIES=TXPORT2
+
+ PROP-SET     TXPORT2  IS NEW 02/24/2019   13:55:18:97 
+ PROP-SET TXPORT2 RHOMX MUMX SIGMAMX UNITS='gm/cc'  &
+         SUBSTREAM=MIXED PHASE=V L1 L2
+
+ PDF updated                                                                      TIME =     85.68
+ THIS COPY OF ASPEN PLUS LICENSED TO NATIONAL TAIWAN UNIV            
+ 
+ 
+
+Calculations begin                                                              time     87.25
+
+
+      UOS BLOCK EXTOWER  MODEL: EXTRACT                                           TIME =     87.25
+
+      Convergence iterations:
+         OL   IL     Err/Tol
+          1    3     0.36875    
+ 
+
+ Report Writer entered                                                            Time =    906.98
+
+ Results generated                                                                Time =    907.09
+
+ Report Writer entered                                                            Time =    908.63
+
+ Results generated                                                                Time =    908.78
+
+RUN SAVED
+
+
+
+ NO ERRORS OR WARNINGS GENERATED
+
+ *** CALCULATION TRACE ***
+
+
+<set objective = None>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+<reset scope>
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO RENAME       03/20/2019   13:38:38:26 
+ RENAME
+     STREAM "S2" "V6" / "S1" "B6"
+
+ STREAM       F6       IS NEW 03/20/2019   13:38:38:26 
+ STREAM F6
+     SUBSTREAM MIXED TEMP=298.1500000 PRES=2. MOLE-FLOW=100.
+     MOLE-FRAC WATER 0.5 / ETHANOL 0.5
+
+ BLOCK        C6       IS NEW 03/20/2019   13:38:38:26 
+ BLOCK C6 RADFRAC
+     PARAM NSTAGE=34 ALGORITHM=STANDARD MAXOL=25 DAMPING=NONE
+     COL-CONFIG CONDENSER=NONE
+     FEEDS F6 1 ON-STAGE
+     PRODUCTS B6 34 L / V6 1 V
+     P-SPEC 1 1.
+     COL-SPECS B:F=0.5 DP-STAGE=0.0068
+
+ FLOWSHEET    IS  NEW 03/20/2019   13:38:38:26 
+ FLOWSHEET
+     BLOCK C1 IN=F1 OUT=D1 B1
+     BLOCK C2-SIZE IN=F2 OUT=D2 B2
+     BLOCK C3 IN=F3 RE3-VAP OUT=D3 C3-B
+     BLOCK C3-RE IN=C3-B OUT=RE3-VAP B3
+     BLOCK C4 IN=F4 REFLUX4 OUT=C4-V B4
+     BLOCK C4-CON IN=C4-V OUT=CON4-L
+     BLOCK C4-SPLIT IN=CON4-L OUT=REFLUX4 D4
+     BLOCK C5-FLASH IN=C5-REO OUT=RE5-VAP B5
+     BLOCK C5 IN=F5 RE5-VAP OUT=D5 C5-B
+     BLOCK C5-RE IN=C5-B OUT=C5-REO
+     BLOCK COOLER IN=CI OUT=CO
+     BLOCK EXTOWER IN=FF1 SOL OUT=EX RAFF
+     BLOCK DEC IN=FF2 OUT=AQ OR
+     BLOCK C6 IN=F6 OUT=V6 B6
+
+ PDF updated                                                                      TIME =    118.85
+ THIS COPY OF ASPEN PLUS LICENSED TO NATIONAL TAIWAN UNIV            
+ 
+ 
+ *** FLOWSHEET ANALYSIS MESSAGES ***
+
+ FLOWSHEET CONNECTIVITY BY STREAMS       
+
+   STREAM     SOURCE     DEST           STREAM     SOURCE     DEST
+   F6         ----       C6             FF2        ----       DEC     
+   SOL        ----       EXTOWER        FF1        ----       EXTOWER 
+   F1         ----       C1             F2         ----       C2-SIZE 
+   F3         ----       C3             F4         ----       C4      
+   F5         ----       C5             CI         ----       COOLER  
+   D1         C1         ----           B1         C1         ----    
+   D2         C2-SIZE    ----           B2         C2-SIZE    ----    
+   D3         C3         ----           C3-B       C3         C3-RE   
+   RE3-VAP    C3-RE      C3             B3         C3-RE      ----    
+   C4-V       C4         C4-CON         B4         C4         ----    
+   CON4-L     C4-CON     C4-SPLIT       REFLUX4    C4-SPLIT   C4      
+   D4         C4-SPLIT   ----           RE5-VAP    C5-FLASH   C5      
+   B5         C5-FLASH   ----           D5         C5         ----    
+   C5-B       C5         C5-RE          C5-REO     C5-RE      C5-FLASH
+   CO         COOLER     ----           EX         EXTOWER    ----    
+   RAFF       EXTOWER    ----           AQ         DEC        ----    
+   OR         DEC        ----           V6         C6         ----    
+   B6         C6         ----                                         
+
+ FLOWSHEET CONNECTIVITY BY BLOCKS        
+
+   BLOCK        INLETS                         OUTLETS
+   C1           F1                             D1 B1                       
+   C2-SIZE      F2                             D2 B2                       
+   C3           F3 RE3-VAP                     D3 C3-B                     
+   C3-RE        C3-B                           RE3-VAP B3                  
+   C4           F4 REFLUX4                     C4-V B4                     
+   C4-CON       C4-V                           CON4-L                      
+   C4-SPLIT     CON4-L                         REFLUX4 D4                  
+   C5-FLASH     C5-REO                         RE5-VAP B5                  
+   C5           F5 RE5-VAP                     D5 C5-B                     
+   C5-RE        C5-B                           C5-REO                      
+   COOLER       CI                             CO                          
+   EXTOWER      FF1 SOL                        EX RAFF                     
+   DEC          FF2                            AQ OR                       
+   C6           F6                             V6 B6                       
+
+      BLOCK $OLVER01 (METHOD: WEGSTEIN) HAS BEEN DEFINED TO CONVERGE
+               STREAMS: C5-B
+
+      BLOCK $OLVER02 (METHOD: WEGSTEIN) HAS BEEN DEFINED TO CONVERGE
+               STREAMS: REFLUX4
+
+      BLOCK $OLVER03 (METHOD: WEGSTEIN) HAS BEEN DEFINED TO CONVERGE
+               STREAMS: RE3-VAP
+
+      COMPUTATION ORDER FOR THE FLOWSHEET IS:
+      C6 DEC EXTOWER COOLER 
+      $OLVER01 C5-RE C5-FLASH C5 
+      (RETURN $OLVER01) 
+      $OLVER02 C4 C4-CON C4-SPLIT 
+      (RETURN $OLVER02) 
+      $OLVER03 C3 C3-RE 
+      (RETURN $OLVER03) 
+      C2-SIZE C1 
+
+Calculations begin                                                              time    120.35
+
+
+ SIMULATION CALCULATIONS BEGIN                                                    TIME =    120.35
+
+      ENTHALPY CALCULATION FOR INLET STREAM F6 OF BLOCK C6                        TIME =    120.35
+      KODE = 2  NTRIAL =   2  T = 298.1500  P =  202650.      V =  0.00000      Q =  0.00000    
+
+      UOS BLOCK C6       MODEL: RADFRAC                                           TIME =    120.35
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    3      323.43    
+          2    1    3      145.80    
+          3    1    3      28.897    
+          4    1    3      11.314    
+          5    1    2      2.2863    
+          6    1    3     0.84977    
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =    120.35
+      ITER   0 For Tear Streams: C5-B
+
+      CONVERGENCE BLOCK $OLVER01  METHOD: WEGSTEIN                                TIME =    120.35
+      ITER   1 For Tear Streams: C5-B
+
+  LOOP $OLVER01 ITER    1:     *** CONVERGED *** , MAX ERR/TOL      0.0000        TIME =    120.35
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =    120.35
+      ITER   0 For Tear Streams: REFLUX4
+
+      CONVERGENCE BLOCK $OLVER02  METHOD: WEGSTEIN                                TIME =    120.35
+      ITER   1 For Tear Streams: REFLUX4
+
+  LOOP $OLVER02 ITER    1:     *** CONVERGED *** , MAX ERR/TOL      0.0000        TIME =    120.35
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =    120.35
+      ITER   0 For Tear Streams: RE3-VAP
+
+      CONVERGENCE BLOCK $OLVER03  METHOD: WEGSTEIN                                TIME =    120.35
+      ITER   1 For Tear Streams: RE3-VAP
+
+  LOOP $OLVER03 ITER    1:     *** CONVERGED *** , MAX ERR/TOL      0.0000        TIME =    120.35
+
+ Report Writer entered                                                            Time =    730.85
+
+ Results generated                                                                Time =    731.00
+
+ Report Writer entered                                                            Time =    732.59
+
+ Results generated                                                                Time =    732.77
+
+RUN SAVED
+
+
+
+ NO ERRORS OR WARNINGS GENERATED
+
+ *** CALCULATION TRACE ***
+
+
+<set objective = None>
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        C6       04/01/2019   13:09:33:76 
+ BLOCK C6 RADFRAC
+     PARAM NSTAGE=34 ALGORITHM=STANDARD HYDRAULIC=YES MAXOL=25  &
+         DAMPING=NONE
+     COL-CONFIG CONDENSER=NONE
+     FEEDS F6 1 ON-STAGE
+     PRODUCTS B6 34 L / V6 1 V
+     P-SPEC 1 1.
+     COL-SPECS B:F=0.5 DP-STAGE=0.0068
+     REPORT HYDRAULIC
+
+ PDF updated                                                                      TIME =     20.12
+ THIS COPY OF ASPEN PLUS LICENSED TO NATIONAL TAIWAN UNIV            
+ 
+ 
+
+Calculations begin                                                              time     21.79
+
+
+ SIMULATION CALCULATIONS BEGIN                                                    TIME =     21.79
+
+      UOS BLOCK C6       MODEL: RADFRAC                                           TIME =     21.79
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    3      323.43    
+          2    1    3      145.80    
+          3    1    3      28.897    
+          4    1    3      11.314    
+          5    1    2      2.2863    
+          6    1    3     0.84977    
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        C6       04/01/2019   13:09:50:04 
+ BLOCK C6 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=34 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES
+     COL-CONFIG CONDENSER=NONE CA-CONFIG=INT-1
+     FEEDS F6 1 ON-STAGE
+     PRODUCTS B6 34 L / V6 1 V
+     P-SPEC 1 1.
+     COL-SPECS B:F=0.5 DP-STAGE=0.0068
+     REPORT NOHYDRAULIC
+     INTERNALS CS-1 STAGE1=1 STAGE2=33 P-UPDATE=NO
+     TRAY-SIZE 1 1 33 SIEVE
+
+ PDF updated                                                                      TIME =     36.42
+ THIS COPY OF ASPEN PLUS LICENSED TO NATIONAL TAIWAN UNIV            
+ 
+ 
+
+
+Calculations begin                                                              time     36.46
+
+
+      UOS BLOCK C6       MODEL: RADFRAC                                           TIME =     36.46
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    3      323.43    
+          2    1    3      145.80    
+          3    1    3      28.897    
+          4    1    3      11.314    
+          5    1    2      2.2863    
+          6    1    3     0.84977    
+
+ Report Writer entered                                                            Time =     41.32
+
+ Results generated                                                                Time =     41.46
+
+ Report Writer entered                                                            Time =     43.16
+
+ Results generated                                                                Time =     43.34
+
+RUN SAVED
+
+
+
+ NO ERRORS OR WARNINGS GENERATED
+
+ Report Writer entered                                                            Time =     50.68
+
+ Results generated                                                                Time =     50.88
+
+ Report Writer entered                                                            Time =     52.68
+
+ Results generated                                                                Time =     52.84
+
+RUN SAVED
+
+
+
+ NO ERRORS OR WARNINGS GENERATED

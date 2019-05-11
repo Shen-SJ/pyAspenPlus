@@ -1,0 +1,10 @@
+INPUT: DistillationColumn.inm
+MODNAME: apmain
+RUNID: DistillationColumn
+NEW_RUNID: DistillationColumn
+OLD_RUNID: DistillationColumn
+PDF: DistillationColumn.appdf
+USERNAME: Shen_HJ Lab
+XMOD: C:\Program Files (x86)\AspenTech\Aspen Plus V10.0\Engine\xeq\apmain
+SPONLY:
+DBCONN: _0908hte.ads

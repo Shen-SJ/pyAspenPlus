@@ -1,6 +1,6 @@
 
 
-def AP(path):
+def AP(path, version=None):
     # 匯入兩個重要模組，此函數主要是輸出AP類別用
     # ，不過在輸出前添加了Stream類別
     from pyAspenPlus import Basic
@@ -11,7 +11,7 @@ def AP(path):
     from pyAspenPlus import Decanter
     from pyAspenPlus import Cost
 
-    A = Basic.AP(path)
+    A = Basic.AP(path, version=version)
     A.Stream = Stream.Stream(A)
     A.Distillation = Distillation.Distillation(A)
     A.Heater = Heater.Heater(A)

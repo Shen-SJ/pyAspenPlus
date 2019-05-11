@@ -7,11 +7,13 @@ from functools import wraps
 
 
 class AP:
-    import win32com.client as win32
-    aspen = win32.Dispatch('Apwn.Document')
-
-    def __init__(self, path):
+    def __init__(self, path, version=None):
         import os
+        import win32com.client as win32
+        if version is not None:
+            self.aspen = win32.Dispatch(f'Apwn.Document.{version}.0')
+        else:
+            self.aspen = win32.Dispatch('Apwn.Document')
 
         ## 檢查檔案是否存在
         if not os.path.isfile(path):
